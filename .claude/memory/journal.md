@@ -20,3 +20,8 @@ rules:
 - Serveur dev: `python3 -m http.server 8000 --bind 0.0.0.0` → LAN sur `192.168.1.101:8000`.
 - Position pro précisée: CDI embarqué/logiciel prioritaire, freelance ZenQuality parallèle, remote ou Paris 1-2 j/mois, mobilité Pays de la Loire.
 - Squelette `.claude/` + `CLAUDE.md` + `README.md` créés a posteriori (init-project skippé init pour single-file livrable).
+- Docker setup: `Dockerfile` (nginx:1.27-alpine), `nginx.conf` (gzip+cache+CSP), `docker-compose.yml` (`PORT` env, 127.0.0.1 bind, hardened). Decision logged BDR-004.
+- Git init + remote `https://git.bchanot.fr/bchanot/bchanot-cv.git`. 2 commits baseline + docker, branch renamed `main`→`master` to match remote default. Pushed `7957b04..54e8300`.
+- Certbot install failed for `bchanot.fr`: diagnosed mismatch — `sites-available/bchanot.fr` contained `server_name autreprojet.fr;` (copy-paste leftover). Fix: sed rewrite. Learning logged LRN-001.
+- Commits: `54e8300..7957b04` + user's `414bce1` (CV final).
+- Dedicated `#formation` section added between Parcours + Contact: timeline reused, 3 theme-cards inside École 42 entry (Systèmes/Kernel · Bas niveau · Sécurité/Algo), TSRIT block with `Félicitations du jury` honors pill. Removed `.contact-side` aside + dead CSS, `.contact-list` 2-col on >=768px to fill freed space. Nav link inserted. Commit `1d5fbfa`.
