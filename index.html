@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Bastien Chanot — Développeur confirmé · Systèmes & Backend. 7 ans en C, Rust, Linux kernel, AOSP, embarqué.">
+<meta name="author" content="Bastien Chanot">
+<meta name="theme-color" content="#0d1b12">
+<title>Bastien Chanot — Développeur Systèmes & Backend</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Fraunces:ital,wght@0,300;0,500;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* Palette — non négociable */
+    --dark:       #0d1b12;
+    --dark-mid:   #183325;
+    --g900:       #0e3320;
+    --g700:       #1b5e3b;
+    --g500:       #2d7a4f;
+    --g300:       #6ab98a;
+    --g100:       #dff0e7;
+    --g050:       #eef7f1;
+
+    --ink-1:      #111111;
+    --ink-2:      #1e1e1e;
+    --ink-3:      #636363;
+
+    --page:       #f5f3ec;
+    --rule:       #d8d4c8;
+    --tag:        #e6e2d8;
+
+    /* Typographies */
+    --mono:  'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+    --serif: 'Fraunces', Georgia, serif;
+    --sans:  'DM Sans', system-ui, -apple-system, sans-serif;
+
+    /* Échelle */
+    --r-sm: 4px;
+    --r-md: 6px;
+    --r-pill: 999px;
+    --shadow-sm: 0 1px 2px rgba(13, 27, 18, 0.06);
+    --shadow-md: 0 6px 24px rgba(13, 27, 18, 0.08);
+    --shadow-lg: 0 20px 60px rgba(13, 27, 18, 0.12);
+
+    --nav-h: 64px;
+    --max-w: 1100px;
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; scroll-padding-top: calc(var(--nav-h) + 16px); }
+
+  body {
+    background: var(--page);
+    color: var(--ink-2);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  ::selection { background: var(--g300); color: var(--dark); }
+
+  a { color: var(--g700); text-decoration: none; transition: color .18s ease; }
+  a:hover { color: var(--g500); }
+  a:focus-visible { outline: 2px solid var(--g500); outline-offset: 3px; border-radius: 2px; }
+
+  button, .btn { font-family: inherit; cursor: pointer; }
+
+  /* ── NAV ── */
+  .nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: var(--nav-h);
+    background: rgba(13, 27, 18, 0.92);
+    backdrop-filter: saturate(140%) blur(10px);
+    -webkit-backdrop-filter: saturate(140%) blur(10px);
+    border-bottom: 1px solid rgba(106, 185, 138, 0.12);
+    z-index: 50;
+  }
+  .nav-inner {
+    max-width: var(--max-w);
+    height: 100%;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+  .brand {
+    font-family: var(--mono);
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--g100);
+    letter-spacing: 0.5px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .brand::before {
+    content: "";
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--g300);
+    box-shadow: 0 0 0 0 rgba(106,185,138,.7);
+    animation: pulse 2.4s infinite;
+  }
+  @keyframes pulse {
+    0%   { box-shadow: 0 0 0 0 rgba(106,185,138,.5); }
+    70%  { box-shadow: 0 0 0 10px rgba(106,185,138,0); }
+    100% { box-shadow: 0 0 0 0 rgba(106,185,138,0); }
+  }
+  .nav-links { display: flex; gap: 4px; list-style: none; }
+  .nav-links a {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: rgba(223, 240, 231, 0.75);
+    padding: 8px 12px;
+    border-radius: var(--r-sm);
+    transition: color .18s ease, background .18s ease;
+  }
+  .nav-links a:hover { color: var(--g100); background: rgba(106,185,138,0.08); }
+  .nav-toggle { display: none; }
+
+  @media (max-width: 768px) {
+    .nav-links {
+      position: absolute;
+      top: var(--nav-h); left: 0; right: 0;
+      flex-direction: column;
+      gap: 0;
+      background: var(--dark);
+      border-bottom: 1px solid rgba(106,185,138,0.12);
+      padding: 8px 0;
+      transform: translateY(-200%);
+      transition: transform .25s ease;
+    }
+    .nav-links.open { transform: translateY(0); }
+    .nav-links a { padding: 14px 24px; border-radius: 0; }
+    .nav-toggle {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px; height: 40px;
+      margin-left: auto;
+      background: transparent;
+      border: 1px solid rgba(106,185,138,0.25);
+      border-radius: var(--r-sm);
+      color: var(--g100);
+    }
+    .nav-toggle svg { width: 18px; height: 18px; }
+  }
+
+  /* ── LAYOUT ── */
+  main { padding-top: var(--nav-h); }
+  section { padding: 96px 24px; }
+  .container { max-width: var(--max-w); margin: 0 auto; }
+
+  .section-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--mono);
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--g500);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+  }
+  .section-label::before {
+    content: "";
+    width: 24px; height: 1px; background: var(--g500);
+  }
+  .section-dark .section-label { color: var(--g300); }
+  .section-dark .section-label::before { background: var(--g300); }
+
+  h2.section-title {
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: clamp(28px, 4vw, 40px);
+    line-height: 1.1;
+    color: var(--ink-1);
+    letter-spacing: -0.02em;
+    margin-bottom: 20px;
+  }
+  .section-dark h2.section-title { color: #fff; }
+
+  .section-intro {
+    font-family: var(--sans);
+    font-size: 17px;
+    color: var(--ink-2);
+    max-width: 64ch;
+  }
+  .section-dark .section-intro { color: rgba(223, 240, 231, 0.85); }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative;
+    min-height: calc(100vh - var(--nav-h));
+    padding: 80px 24px 96px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    background:
+      radial-gradient(ellipse 80% 60% at 80% 0%, rgba(45,122,79,0.10) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 50% at 0% 100%, rgba(27,94,59,0.08) 0%, transparent 55%),
+      var(--page);
+  }
+  .hero-inner {
+    max-width: var(--max-w);
+    width: 100%;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 28px;
+    position: relative;
+  }
+  .hero-eyebrow {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--g700);
+    letter-spacing: 0.08em;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .hero-eyebrow::before {
+    content: "▍";
+    color: var(--g500);
+    font-weight: 700;
+  }
+  .hero-name {
+    font-family: var(--serif);
+    font-size: clamp(48px, 8vw, 96px);
+    font-weight: 600;
+    line-height: 0.95;
+    letter-spacing: -0.04em;
+    color: var(--ink-1);
+  }
+  .hero-name em {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--g700);
+  }
+  .hero-title {
+    font-family: var(--mono);
+    font-size: clamp(14px, 1.6vw, 17px);
+    color: var(--ink-2);
+    font-weight: 500;
+    letter-spacing: 0.02em;
+  }
+  .hero-title .sep { color: var(--g500); margin: 0 8px; }
+  .hero-tagline {
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 300;
+    font-size: clamp(20px, 2.6vw, 28px);
+    line-height: 1.35;
+    color: var(--ink-2);
+    max-width: 56ch;
+    border-left: 3px solid var(--g500);
+    padding-left: 20px;
+  }
+  .hero-cta {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-top: 12px;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--mono);
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    padding: 14px 22px;
+    border-radius: var(--r-md);
+    border: 1px solid transparent;
+    transition: transform .18s ease, background .18s ease, color .18s ease, border-color .18s ease, box-shadow .18s ease;
+    text-decoration: none;
+  }
+  .btn-primary {
+    background: var(--dark);
+    color: var(--g100);
+    border-color: var(--dark);
+    box-shadow: var(--shadow-sm);
+  }
+  .btn-primary:hover {
+    background: var(--g700);
+    border-color: var(--g700);
+    color: #fff;
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+  }
+  .btn-secondary {
+    background: transparent;
+    color: var(--dark);
+    border-color: var(--rule);
+  }
+  .btn-secondary:hover {
+    border-color: var(--g500);
+    color: var(--g700);
+    background: var(--g050);
+    transform: translateY(-1px);
+  }
+  .btn .arrow {
+    width: 14px; height: 14px;
+    transition: transform .18s ease;
+  }
+  .btn:hover .arrow { transform: translate(2px, -2px); }
+
+  .hero-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    margin-top: 16px;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--ink-3);
+    letter-spacing: 0.04em;
+  }
+  .hero-meta span { display: inline-flex; align-items: center; gap: 8px; }
+  .hero-meta .dot {
+    display: inline-block;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--g500);
+  }
+
+  /* Stagger entrance */
+  .reveal { opacity: 0; transform: translateY(14px); animation: rise .8s cubic-bezier(.2,.7,.2,1) forwards; }
+  .reveal.d1 { animation-delay: .08s; }
+  .reveal.d2 { animation-delay: .18s; }
+  .reveal.d3 { animation-delay: .30s; }
+  .reveal.d4 { animation-delay: .42s; }
+  .reveal.d5 { animation-delay: .55s; }
+  .reveal.d6 { animation-delay: .68s; }
+  @keyframes rise {
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1; transform: none; animation: none; }
+    .brand::before { animation: none; }
+    html { scroll-behavior: auto; }
+  }
+
+  /* ── ABOUT ── */
+  .about {
+    background: var(--dark);
+    background-image:
+      radial-gradient(ellipse 60% 50% at 100% 0%, rgba(45,122,79,0.16) 0%, transparent 55%),
+      radial-gradient(ellipse 50% 40% at 0% 100%, rgba(27,94,59,0.12) 0%, transparent 60%);
+    color: #fff;
+    position: relative;
+  }
+  .about::before {
+    content: ""; position: absolute; left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: linear-gradient(to bottom, var(--g300), var(--g700));
+  }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 32px;
+    align-items: start;
+  }
+  .about-text p {
+    font-size: 18px;
+    line-height: 1.65;
+    color: rgba(223, 240, 231, 0.92);
+    margin-bottom: 16px;
+    max-width: 62ch;
+  }
+  .about-text strong { color: var(--g300); font-weight: 500; }
+  .about-callout {
+    border: 1px solid rgba(106,185,138,0.25);
+    border-radius: var(--r-md);
+    padding: 20px 22px;
+    background: rgba(13, 27, 18, 0.4);
+  }
+  .about-callout dt {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--g300);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .about-callout dd {
+    font-family: var(--sans);
+    font-size: 15px;
+    color: var(--g100);
+    margin-bottom: 14px;
+  }
+  .about-callout dd:last-child { margin-bottom: 0; }
+  .about-callout a { color: var(--g300); }
+  .about-callout a:hover { color: var(--g100); }
+
+  @media (min-width: 768px) {
+    .about-grid { grid-template-columns: 1.6fr 1fr; gap: 56px; }
+  }
+
+  /* ── STACK ── */
+  .stack { background: var(--page); }
+  .stack-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    margin-top: 40px;
+  }
+  .stack-card {
+    background: #fff;
+    border: 1px solid var(--rule);
+    border-radius: var(--r-md);
+    padding: 24px;
+    transition: border-color .25s ease, transform .25s ease, box-shadow .25s ease;
+  }
+  .stack-card:hover {
+    border-color: var(--g300);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+  .stack-card-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px dashed var(--rule);
+  }
+  .stack-card h3 {
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: 19px;
+    color: var(--ink-1);
+    letter-spacing: -0.01em;
+  }
+  .stack-card-tag {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--g500);
+    letter-spacing: 0.1em;
+  }
+  .pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    list-style: none;
+  }
+  .pill {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--g900);
+    background: var(--g050);
+    border: 1px solid var(--g100);
+    padding: 6px 12px;
+    border-radius: var(--r-pill);
+    transition: background .18s ease, border-color .18s ease, color .18s ease;
+  }
+  .pill:hover {
+    background: var(--g100);
+    border-color: var(--g300);
+    color: var(--g700);
+  }
+
+  @media (min-width: 768px) { .stack-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1200px) { .stack-grid { grid-template-columns: repeat(3, 1fr); } }
+
+  /* ── EXPERIENCE ── */
+  .experience { background: var(--g050); }
+  .timeline {
+    position: relative;
+    margin-top: 40px;
+    padding-left: 28px;
+    border-left: 2px solid var(--g100);
+  }
+  .timeline-item {
+    position: relative;
+    padding: 0 0 36px 24px;
+  }
+  .timeline-item:last-child { padding-bottom: 0; }
+  .timeline-item::before {
+    content: "";
+    position: absolute;
+    left: -34px; top: 6px;
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    background: var(--page);
+    border: 2px solid var(--g500);
+    box-shadow: 0 0 0 4px var(--g050);
+  }
+  .timeline-item.current::before {
+    background: var(--g500);
+    box-shadow: 0 0 0 4px var(--g050), 0 0 0 8px rgba(45,122,79,0.18);
+  }
+  .timeline-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 8px;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--ink-3);
+    letter-spacing: 0.04em;
+  }
+  .timeline-meta .period {
+    color: var(--g700);
+    font-weight: 600;
+  }
+  .timeline-meta .badge {
+    display: inline-block;
+    background: var(--g100);
+    color: var(--g700);
+    padding: 2px 8px;
+    border-radius: var(--r-pill);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .timeline-item h3 {
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: 22px;
+    color: var(--ink-1);
+    margin-bottom: 4px;
+    letter-spacing: -0.01em;
+  }
+  .timeline-item h3 a {
+    color: inherit;
+    border-bottom: 1px solid transparent;
+    transition: border-color .18s ease, color .18s ease;
+  }
+  .timeline-item h3 a:hover { color: var(--g700); border-color: var(--g500); }
+  .timeline-role {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--g700);
+    margin-bottom: 12px;
+  }
+  .timeline-desc {
+    color: var(--ink-2);
+    line-height: 1.6;
+    max-width: 64ch;
+  }
+
+  /* ── CONTACT ── */
+  .contact {
+    background: var(--dark);
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+  }
+  .contact::after {
+    content: "";
+    position: absolute;
+    right: -120px; bottom: -120px;
+    width: 360px; height: 360px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(45,122,79,0.18) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 32px;
+    position: relative;
+    z-index: 1;
+  }
+  .contact-list {
+    list-style: none;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin-top: 32px;
+  }
+  .contact-row {
+    display: grid;
+    grid-template-columns: 28px 1fr;
+    gap: 18px;
+    align-items: center;
+    padding: 18px 20px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(106,185,138,0.18);
+    border-radius: var(--r-md);
+    transition: border-color .18s ease, background .18s ease, transform .18s ease;
+    color: var(--g100);
+  }
+  .contact-row:hover {
+    border-color: var(--g300);
+    background: rgba(106,185,138,0.08);
+    transform: translateY(-1px);
+    color: #fff;
+  }
+  .contact-row svg { width: 20px; height: 20px; color: var(--g300); flex-shrink: 0; }
+  .contact-row .label {
+    display: block;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--g300);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 2px;
+  }
+  .contact-row .value {
+    font-family: var(--mono);
+    font-size: 15px;
+    color: #fff;
+    font-weight: 500;
+    word-break: break-word;
+  }
+
+  .contact-side {
+    border: 1px solid rgba(106,185,138,0.2);
+    border-radius: var(--r-md);
+    padding: 24px;
+    background: rgba(13, 27, 18, 0.5);
+  }
+  .contact-side h3 {
+    font-family: var(--serif);
+    font-size: 20px;
+    color: #fff;
+    margin-bottom: 10px;
+  }
+  .contact-side p {
+    color: rgba(223, 240, 231, 0.85);
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 16px;
+  }
+  .contact-side .education {
+    list-style: none;
+    border-top: 1px solid rgba(106,185,138,0.15);
+    padding-top: 16px;
+    margin-top: 16px;
+  }
+  .contact-side .education li {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: rgba(223, 240, 231, 0.7);
+    margin-bottom: 6px;
+  }
+  .contact-side .education strong { color: var(--g100); font-weight: 600; }
+
+  @media (min-width: 768px) {
+    .contact-grid { grid-template-columns: 1.4fr 1fr; gap: 48px; }
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    background: #061008;
+    color: rgba(223, 240, 231, 0.55);
+    padding: 32px 24px;
+    border-top: 1px solid rgba(106,185,138,0.1);
+  }
+  .footer-inner {
+    max-width: var(--max-w);
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px 32px;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.04em;
+  }
+  .footer a { color: var(--g300); }
+  .footer a:hover { color: var(--g100); }
+  .footer-links { display: flex; gap: 20px; flex-wrap: wrap; }
+
+  /* ── RESPONSIVE TWEAKS ── */
+  @media (max-width: 768px) {
+    section { padding: 72px 20px; }
+    .hero { padding: 56px 20px 72px; }
+    .hero-cta .btn { flex: 1 1 auto; justify-content: center; }
+    .timeline { padding-left: 22px; }
+    .timeline-item { padding-left: 18px; }
+    .timeline-item::before { left: -29px; }
+  }
+
+  @media (min-width: 1200px) {
+    section { padding: 120px 24px; }
+  }
+
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<header class="nav" role="banner">
+  <div class="nav-inner">
+    <a href="#hero" class="brand" aria-label="Bastien Chanot — accueil">bchanot.fr</a>
+    <button class="nav-toggle" type="button" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="primary-nav">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+    <nav aria-label="Navigation principale">
+      <ul id="primary-nav" class="nav-links">
+        <li><a href="#about">À propos</a></li>
+        <li><a href="#stack">Stack</a></li>
+        <li><a href="#experience">Parcours</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <!-- HERO -->
+  <section id="hero" class="hero" aria-labelledby="hero-name">
+    <div class="hero-inner">
+      <p class="hero-eyebrow reveal">Disponible — CDI systèmes&nbsp;/&nbsp;embarqué · missions freelance</p>
+      <h1 id="hero-name" class="hero-name reveal d1">Bastien&nbsp;<em>Chanot</em></h1>
+      <p class="hero-title reveal d2">Développeur confirmé<span class="sep">·</span>Systèmes &amp; Backend</p>
+      <p class="hero-tagline reveal d3">Du kernel Linux au backend Rust — 7 ans de développement systèmes en production.</p>
+      <div class="hero-cta reveal d4">
+        <a class="btn btn-primary" href="#contact">
+          Me contacter
+          <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="19" x2="19" y2="5"/><polyline points="8 5 19 5 19 16"/></svg>
+        </a>
+        <a class="btn btn-secondary" href="CV_Bastien_Chanot.html">
+          Voir le CV
+          <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="19" x2="19" y2="5"/><polyline points="8 5 19 5 19 16"/></svg>
+        </a>
+        <a class="btn btn-secondary" href="CV_Bastien_Chanot.pdf" download>
+          Télécharger PDF
+          <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        </a>
+      </div>
+      <div class="hero-meta reveal d5">
+        <span><span class="dot"></span>C · Rust · Linux Kernel</span>
+        <span><span class="dot"></span>AOSP · Embarqué</span>
+        <span><span class="dot"></span>Backend · DevOps</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="about section-dark" aria-labelledby="about-title">
+    <div class="container">
+      <span class="section-label">À propos</span>
+      <h2 id="about-title" class="section-title">Sept ans à écrire du code qui tourne là où ça compte.</h2>
+      <div class="about-grid">
+        <div class="about-text">
+          <p>Je suis développeur systèmes confirmé, formé à l'<strong>École&nbsp;42</strong> et passé par six ans chez <strong>CareGame</strong> où j'ai écrit des drivers Linux kernel, un backend Rust temps réel et fait tourner des serveurs GPU bare-metal en production.</p>
+          <p>Mon terrain de jeu : <strong>C, Rust, Linux kernel, AOSP, embarqué, infrastructure</strong>. Quand un problème touche au bas niveau — port matériel, latence, sécurité, kernel — c'est là que j'apporte le plus de valeur.</p>
+          <p>Aujourd'hui indépendant sous la marque <strong>ZenQuality</strong>, mais avant tout en recherche d'un <strong>CDI en systèmes embarqués ou logiciel</strong> — les missions freelance se font en parallèle.</p>
+          <p>Côté présence : <strong>full remote</strong> idéalement, ou <strong>hybride 1 à 2 jours par mois</strong> si l'équipe est à Paris. Mobilité visée à moyen terme : <strong>Pays de la Loire</strong>.</p>
+        </div>
+        <dl class="about-callout">
+          <dt>Recherche prioritaire</dt>
+          <dd>CDI systèmes embarqués / logiciel</dd>
+          <dt>En parallèle</dt>
+          <dd>Missions freelance · ZenQuality</dd>
+          <dt>Localisation actuelle</dt>
+          <dd>Yerres (91) · mobilité Pays de la Loire</dd>
+          <dt>Présence</dt>
+          <dd>Full remote · ou 1–2 j/mois si Paris</dd>
+          <dt>Site pro</dt>
+          <dd><a href="https://zenquality.fr" target="_blank" rel="noopener">zenquality.fr&nbsp;↗</a></dd>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <!-- STACK -->
+  <section id="stack" class="stack" aria-labelledby="stack-title">
+    <div class="container">
+      <span class="section-label">Stack technique</span>
+      <h2 id="stack-title" class="section-title">Ce avec quoi je travaille, sans le marketing.</h2>
+      <p class="section-intro">Outils éprouvés, choisis pour leurs garanties — pas pour leur hype. Tout ce qui suit est en production ou l'a été.</p>
+      <div class="stack-grid">
+
+        <article class="stack-card">
+          <header class="stack-card-head">
+            <h3>Langages</h3>
+            <span class="stack-card-tag">// 01</span>
+          </header>
+          <ul class="pills">
+            <li class="pill">C</li>
+            <li class="pill">Rust</li>
+            <li class="pill">Java</li>
+            <li class="pill">Bash</li>
+            <li class="pill">Python</li>
+          </ul>
+        </article>
+
+        <article class="stack-card">
+          <header class="stack-card-head">
+            <h3>Embarqué</h3>
+            <span class="stack-card-tag">// 02</span>
+          </header>
+          <ul class="pills">
+            <li class="pill">Linux kernel drivers</li>
+            <li class="pill">AOSP</li>
+            <li class="pill">ARM / x86</li>
+            <li class="pill">GPIO</li>
+            <li class="pill">NFC</li>
+            <li class="pill">ESC/POS</li>
+            <li class="pill">cross-compilation GCC</li>
+          </ul>
+        </article>
+
+        <article class="stack-card">
+          <header class="stack-card-head">
+            <h3>Conteneurs</h3>
+            <span class="stack-card-tag">// 03</span>
+          </header>
+          <ul class="pills">
+            <li class="pill">Docker</li>
+            <li class="pill">LXC / LXD</li>
+            <li class="pill">QEMU</li>
+            <li class="pill">VMware</li>
+          </ul>
+        </article>
+
+        <article class="stack-card">
+          <header class="stack-card-head">
+            <h3>Backend</h3>
+            <span class="stack-card-tag">// 04</span>
+          </header>
+          <ul class="pills">
+            <li class="pill">Rust</li>
+            <li class="pill">WebSocket</li>
+            <li class="pill">GPU bare-metal</li>
+            <li class="pill">ramdisk I/O</li>
+          </ul>
+        </article>
+
+        <article class="stack-card">
+          <header class="stack-card-head">
+            <h3>Systèmes</h3>
+            <span class="stack-card-tag">// 05</span>
+          </header>
+          <ul class="pills">
+            <li class="pill">Linux bare-metal</li>
+            <li class="pill">AOSP</li>
+            <li class="pill">Android Backup</li>
+            <li class="pill">systemd</li>
+          </ul>
+        </article>
+
+        <article class="stack-card">
+          <header class="stack-card-head">
+            <h3>DevOps</h3>
+            <span class="stack-card-tag">// 06</span>
+          </header>
+          <ul class="pills">
+            <li class="pill">Git</li>
+            <li class="pill">GitHub / GitLab</li>
+            <li class="pill">CI / CD</li>
+            <li class="pill">Gitflow</li>
+            <li class="pill">Agile</li>
+          </ul>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience" class="experience" aria-labelledby="experience-title">
+    <div class="container">
+      <span class="section-label">Parcours</span>
+      <h2 id="experience-title" class="section-title">Trois expériences qui résument l'essentiel.</h2>
+      <p class="section-intro">Sept ans de développement systèmes en production — du kernel au backend, de la puce au serveur.</p>
+
+      <ol class="timeline">
+
+        <li class="timeline-item current">
+          <div class="timeline-meta">
+            <span class="period">avr.&nbsp;2026 — présent</span>
+            <span class="badge">En cours</span>
+            <span>Yerres · Full remote</span>
+          </div>
+          <h3><a href="https://zenquality.fr" target="_blank" rel="noopener">ZenQuality</a></h3>
+          <p class="timeline-role">Développeur indépendant · Systèmes &amp; Backend</p>
+          <p class="timeline-desc">Développement système et embarqué en indépendant. Interventions sur Linux, Rust, kernel et infrastructure critique. Premier contrat : audit SEO et conformité légale pour un client e-commerce (portfolio en construction).</p>
+        </li>
+
+        <li class="timeline-item">
+          <div class="timeline-meta">
+            <span class="period">mars&nbsp;2019 — mars&nbsp;2025</span>
+            <span>Paris · Full remote dès 2020</span>
+          </div>
+          <h3>CareGame</h3>
+          <p class="timeline-role">Développeur systèmes &amp; backend</p>
+          <p class="timeline-desc">Seul responsable de la couche kernel, AOSP et serveur de jeu pendant 6 ans. Développement de drivers Linux en C (x86/ARM), backend Rust (~2 000 lignes, WebSocket), virtual touchscreen/gamepad AOSP en Java. Architecture de serveurs GPU bare-metal (8× GPU T4, 64 vCPU) — isolation CPU/GPU par session, I/O sur ramdisk, 32 sessions jeux AAA simultanées. Intégration d'un système LXC/LXD issu d'une R&amp;D Nvidia abandonnée — résultats reconnus par leurs équipes. Collaboration directe avec Canonical (Anbox, accès pre-commercial) et Ampere Computing (serveurs ARM pre-launch).</p>
+        </li>
+
+        <li class="timeline-item">
+          <div class="timeline-meta">
+            <span class="period">2017</span>
+            <span>Ivry-sur-Seine</span>
+          </div>
+          <h3>Deewee</h3>
+          <p class="timeline-role">Développeur C embarqué</p>
+          <p class="timeline-desc">Système embarqué complet développé seul en C sur Orange Pi (Debian ARM) : interception du flux ESC/POS d'une imprimante thermique, génération PNG du ticket, déclenchement GPIO sur bouton physique, création d'un hotspot WiFi embarqué avec diffusion des credentials via NFC, envoi de l'image en WiFi direct vers une application mobile tierce.</p>
+        </li>
+
+      </ol>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="contact section-dark" aria-labelledby="contact-title">
+    <div class="container">
+      <span class="section-label">Contact</span>
+      <h2 id="contact-title" class="section-title">Une mission, une question technique, un&nbsp;projet&nbsp;?</h2>
+      <p class="section-intro">Le plus simple : l'email. Réponse sous 48&nbsp;h ouvrées.</p>
+
+      <div class="contact-grid">
+        <ul class="contact-list">
+
+          <li>
+            <a class="contact-row" href="mailto:chanot.bastien@gmail.com">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><polyline points="3 7 12 13 21 7"/></svg>
+              <span>
+                <span class="label">Email</span>
+                <span class="value">chanot.bastien@gmail.com</span>
+              </span>
+            </a>
+          </li>
+
+          <li>
+            <a class="contact-row" href="tel:+33778822297">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.86 19.86 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.86 19.86 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.72 2.8a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.35 1.84.59 2.8.72A2 2 0 0 1 22 16.92z"/></svg>
+              <span>
+                <span class="label">Téléphone</span>
+                <span class="value">+33 7 78 82 22 97</span>
+              </span>
+            </a>
+          </li>
+
+          <li>
+            <a class="contact-row" href="https://zenquality.fr" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+              <span>
+                <span class="label">Site pro</span>
+                <span class="value">zenquality.fr</span>
+              </span>
+            </a>
+          </li>
+
+          <li>
+            <a class="contact-row" href="CV_Bastien_Chanot.pdf" download>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              <span>
+                <span class="label">CV</span>
+                <span class="value">Télécharger le PDF</span>
+              </span>
+            </a>
+          </li>
+
+        </ul>
+
+        <aside class="contact-side">
+          <h3>Formation</h3>
+          <p>Formation par la pratique et le bas niveau — kernel, mémoire, shell, sécurité.</p>
+          <ul class="education">
+            <li><strong>École 42</strong> · Clichy · 2015–2019<br>kernel, malloc, shell, sécurité</li>
+            <li><strong>TSRIT</strong> · Next Formation · 2013–2015<br>Félicitations du jury</li>
+          </ul>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="footer" role="contentinfo">
+  <div class="footer-inner">
+    <span>© 2026 · Bastien Chanot · bchanot.fr</span>
+    <div class="footer-links">
+      <a href="CV_Bastien_Chanot.html">CV (HTML)</a>
+      <a href="CV_Bastien_Chanot.pdf" download>CV (PDF)</a>
+      <a href="https://zenquality.fr" target="_blank" rel="noopener">zenquality.fr ↗</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Mobile nav toggle
+  (function () {
+    const toggle = document.querySelector('.nav-toggle');
+    const links  = document.getElementById('primary-nav');
+    if (!toggle || !links) return;
+
+    toggle.addEventListener('click', () => {
+      const open = links.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', String(open));
+      toggle.setAttribute('aria-label', open ? 'Fermer le menu' : 'Ouvrir le menu');
+    });
+
+    links.addEventListener('click', (e) => {
+      if (e.target instanceof HTMLAnchorElement && links.classList.contains('open')) {
+        links.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+        toggle.setAttribute('aria-label', 'Ouvrir le menu');
+      }
+    });
+  })();
+
+  // Active section highlight in nav (subtle — color shift only)
+  (function () {
+    const sections = document.querySelectorAll('main section[id]');
+    const navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
+    if (!('IntersectionObserver' in window) || !sections.length) return;
+
+    const map = new Map();
+    navLinks.forEach(a => {
+      const id = a.getAttribute('href').slice(1);
+      map.set(id, a);
+    });
+
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        const link = map.get(entry.target.id);
+        if (!link) return;
+        if (entry.isIntersecting) {
+          navLinks.forEach(a => a.style.color = '');
+          link.style.color = 'var(--g100)';
+        }
+      });
+    }, { rootMargin: '-40% 0px -55% 0px', threshold: 0 });
+
+    sections.forEach(s => io.observe(s));
+  })();
+</script>
+
+</body>
+</html>

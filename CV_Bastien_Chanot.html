@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bastien Chanot — CV</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Fraunces:ital,wght@0,300;0,600;0,700;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* Zones sombres (header, footer) */
+    --dark:       #0d1b12;
+    --dark-mid:   #183325;
+
+    /* Échelle verte — même teinte, 5 niveaux */
+    --g900:  #0e3320;   /* texte sur fond clair : très fort */
+    --g700:  #1b5e3b;   /* titres section, rôles, accroches */
+    --g500:  #2d7a4f;   /* bordures accent, liens */
+    --g300:  #6ab98a;   /* sur fond sombre : lisible */
+    --g100:  #dff0e7;   /* tag bg clair */
+    --g050:  #eef7f1;   /* skills block bg */
+
+    /* Typographie — neutrals chauds */
+    --ink-1:  #111111;  /* noms entreprises, school, titres forts */
+    --ink-2:  #1e1e1e;  /* corps de texte, bullets */
+    --ink-3:  #636363;  /* dates, lieux, labels légers */
+
+    /* Surfaces */
+    --page:   #f5f3ec;  /* fond document */
+    --rule:   #d8d4c8;  /* séparateurs */
+    --tag:    #e6e2d8;  /* tag générique */
+
+    --mono: 'JetBrains Mono', monospace;
+    --serif: 'Fraunces', serif;
+    --sans: 'DM Sans', sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #fff;
+    font-family: var(--sans);
+    -webkit-font-smoothing: antialiased;
+    margin: 0;
+    padding: 0;
+  }
+
+
+
+  .page {
+    width: 210mm;
+    max-width: 100%;
+    margin: 0 auto;
+    background: var(--page);
+
+    overflow: hidden;
+  }
+
+  /* ── HEADER DARK BLOCK ── */
+  .cv-header {
+    background: var(--dark);
+    background-image: radial-gradient(ellipse 120% 200% at 0% 50%, var(--dark-mid) 0%, var(--dark) 60%);
+    padding: 22px 20mm 18px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 20px;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cv-header::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 4px;
+    background: linear-gradient(to bottom, var(--g300), var(--g700));
+  }
+
+  .cv-header::after {
+    content: '';
+    position: absolute;
+    right: -40px; top: -40px;
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(45,122,79,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .header-name {
+    font-family: var(--serif);
+    font-size: 26pt;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1;
+    letter-spacing: -0.5px;
+  }
+
+  .header-title {
+    font-family: var(--mono);
+    font-size: 9pt;
+    font-weight: 600;
+    color: var(--g300);
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    margin-top: 6px;
+    opacity: 0.9;
+  }
+
+  .header-contact {
+    text-align: right;
+    font-family: var(--mono);
+    font-size: 7.5pt;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.8;
+    white-space: nowrap;
+    min-width: 210px;
+    flex-shrink: 0;
+  }
+  .contact-sep {
+    color: rgba(106,185,138,0.4);
+    margin: 0 4px;
+  }
+  .header-contact a {
+    color: rgba(255,255,255,0.8);
+    text-decoration: underline;
+    text-decoration-color: rgba(106,185,138,0.5);
+    text-underline-offset: 2px;
+  }
+
+  /* ── BODY ── */
+  .cv-body {
+    padding: 14px 20mm 16px;
+    background:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='6' height='6'%3E%3Ccircle cx='1' cy='1' r='0.6' fill='rgba(26,71,48,0.05)'/%3E%3C/svg%3E"),
+      linear-gradient(160deg, #f5f3ec 0%, #edeadf 55%, #f2efe6 100%);
+  }
+
+  .accroche {
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 400;
+    font-size: 11.5pt;
+    color: var(--ink-2);
+    line-height: 1.7;
+    border-left: 3px solid var(--g500);
+    padding: 6px 0 6px 12px;
+    margin: 14px 0;
+    background: linear-gradient(to right, rgba(14,51,32,0.04), transparent);
+  }
+
+  .rule {
+    height: 1px;
+    background: linear-gradient(to right, var(--rule), rgba(216,212,200,0));
+    margin: 10px 0;
+  }
+
+  .section { margin-bottom: 13px; }
+
+  .section-title {
+    font-family: var(--mono);
+    font-size: 9pt;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--g700);
+    margin-bottom: 9px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--rule);
+  }
+
+  /* ── XP ── */
+  .xp-block { margin-bottom: 11px; }
+
+  .xp-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 1px;
+  }
+
+  .xp-company {
+    font-family: var(--mono);
+    font-size: 12pt;
+    font-weight: 700;
+    color: var(--ink-1);
+  }
+
+  .xp-dates {
+    font-family: var(--mono);
+    font-size: 8.5pt;
+    color: var(--ink-3);
+    white-space: nowrap;
+    background: var(--tag);
+    padding: 1px 6px;
+    border-radius: 2px;
+  }
+
+  .xp-role {
+    font-size: 10pt;
+    font-weight: 500;
+    color: var(--g700);
+    margin-bottom: 5px;
+  }
+
+  .xp-loc {
+    font-size: 7.5pt;
+    color: var(--ink-3);
+    font-style: italic;
+  }
+
+  ul.bullets { list-style: none; }
+
+  ul.bullets li {
+    padding-left: 13px;
+    position: relative;
+    margin-bottom: 3px;
+    font-size: 10.5pt;
+    font-weight: 500;
+    color: var(--ink-2);
+    line-height: 1.55;
+  }
+
+  ul.bullets li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: var(--g300);
+    font-size: 7pt;
+    top: 2px;
+  }
+
+  .tag {
+    display: inline-block;
+    background: var(--g100);
+    border: 1px solid #a8d4bc;
+    font-family: var(--mono);
+    font-size: 6.5pt;
+    padding: 1px 5px;
+    border-radius: 3px;
+    color: var(--g900);
+    margin: 0 1px;
+    white-space: nowrap;
+  }
+
+  /* ── SKILLS ── */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: 88px 1fr;
+    gap: 4px 10px;
+    font-size: 8.4pt;
+
+  }
+
+  .skill-label {
+    font-family: var(--mono);
+    font-size: 9.5pt;
+    font-weight: 700;
+    color: var(--g700);
+    padding-top: 1px;
+  }
+
+  .skill-values { font-size: 10.5pt; font-weight: 500; color: var(--ink-2); }
+
+  /* ── EDU ── */
+  .edu-block { margin-bottom: 9px; }
+
+  .edu-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+
+  .edu-school {
+    font-family: var(--mono);
+    font-size: 11.5pt;
+    font-weight: 700;
+    color: var(--ink-1);
+  }
+
+  .edu-dates {
+    font-family: var(--mono);
+    font-size: 7.2pt;
+    color: var(--ink-3);
+    background: var(--tag);
+    padding: 1px 6px;
+    border-radius: 2px;
+  }
+
+  .edu-degree {
+    font-size: 10pt;
+    font-weight: 500;
+    color: var(--g700);
+    margin-bottom: 3px;
+  }
+
+  .edu-detail {
+    font-size: 10pt;
+    font-weight: 500;
+    color: var(--ink-2);
+    line-height: 1.55;
+  }
+
+  /* ── TWO COL BOTTOM ── */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 20px;
+  }
+
+  .lang-row { display: flex; gap: 5px; flex-wrap: wrap; }
+
+  .lang-item {
+    font-family: var(--mono);
+    font-size: 9pt;
+    color: var(--g900);
+    background: var(--g100);
+    border: 1px solid #a8d4bc;
+    padding: 3px 10px;
+    border-radius: 12px;
+  }
+
+  .lang-item .level {
+    color: var(--ink-3);
+    font-size: 8pt;
+  }
+
+  .interests { display: flex; flex-wrap: wrap; gap: 5px; }
+
+  .interest-tag {
+    font-family: var(--mono);
+    font-size: 9pt;
+    color: var(--g900);
+    background: var(--g100);
+    border: 1px solid #a8d4bc;
+    padding: 3px 10px;
+    border-radius: 12px;
+  }
+
+  /* ── FOOTER ── */
+  .footer-bar {
+    background: var(--dark);
+    padding: 7px 20mm;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-bar span {
+    font-family: var(--mono);
+    font-size: 6.8pt;
+    color: rgba(255,255,255,0.3);
+  }
+
+  .footer-bar a {
+    font-family: var(--mono);
+    font-size: 6.8pt;
+    color: var(--g300);
+    text-decoration: none;
+    opacity: 0.7;
+  }
+
+  /* ── PRINT ── */
+  @media print {
+    body { background: white; padding: 0; }
+    .screen-label { display: none; }
+    .page { box-shadow: none; }
+    .cv-header { padding: 18px 14mm 14px; }
+    .cv-body { padding: 12px 14mm 14px; }
+    .footer-bar { padding: 6px 14mm; }
+    @page { size: A4; margin: 0; }
+  }
+</style>
+</head>
+<body>
+
+
+<div class="page">
+
+  <div class="cv-header">
+    <div>
+      <div class="header-name">Bastien Chanot</div>
+      <div class="header-title">Développeur confirmé &nbsp;·&nbsp; Systèmes &amp; Backend</div>
+    </div>
+    <div class="header-contact">
+      <a href="tel:+33778822297">+33 7 78 82 22 97</a><br>
+      <a href="mailto:chanot.bastien@gmail.com">chanot.bastien@gmail.com</a><br>
+      Yerres → Reloc. Pays de la Loire<br>
+      Open full remote <span class="contact-sep">|</span> Permis B &amp; A
+    </div>
+  </div>
+
+  <div class="cv-body">
+
+    <div class="accroche">
+      Développeur systèmes confirmé (7 ans), spécialisé en C/Rust/Java sur Linux bare-metal, kernel drivers et environnements AOSP.
+      Expérience étendue sur l'architecture et l'exploitation de serveurs GPU haute densité, la conteneurisation LXC/LXD,
+      et le développement système embarqué de bout en bout. Habitué à opérer seul sur des périmètres larges,
+      de la couche kernel au backend réseau.
+    </div>
+
+    <div class="rule"></div>
+
+    <div class="section">
+      <div class="section-title">Expérience professionnelle</div>
+
+      <div class="xp-block">
+        <div class="xp-header">
+          <span class="xp-company">ZenQuality</span>
+          <span class="xp-dates">Avr. 2026 – présent</span>
+        </div>
+        <div class="xp-role">Développeur indépendant <span class="xp-loc">· Yerres · <a href="https://zenquality.fr" style="color:var(--g500);text-decoration:none;border-bottom:1px solid var(--g300);">zenquality.fr</a></span></div>
+        <ul class="bullets">
+          <li>Développement logiciel et conseil technique en indépendant — systèmes, backend, infrastructure.</li>
+        </ul>
+      </div>
+
+      <div class="xp-block">
+        <div class="xp-header">
+          <span class="xp-company">CareGame</span>
+          <span class="xp-dates">Mars 2019 – Mars 2025</span>
+        </div>
+        <div class="xp-role">Développeur logiciel — Systèmes &amp; Backend <span class="xp-loc">· Paris · Full remote dès 2020</span></div>
+        <ul class="bullets">
+          <li>Développement solo de drivers kernel Linux en <span class="tag">C</span> pour environnement AOSP (x86 / ARM) — adaptation de modules GPU, isolation CPU/GPU par instance de jeu.</li>
+          <li>Développement d'un backend <span class="tag">Rust</span> (~2 000 lignes) : communication WebSocket entre clients et instances, intégration <span class="tag">Docker</span> / <span class="tag">LXC</span> pour l'orchestration des conteneurs AOSP.</li>
+          <li>Développement de virtual touchscreen et virtual gamepad AOSP (<span class="tag">Java</span>), servant de drivers hôtes communicant avec le backend Rust.</li>
+          <li>Architecture et optimisation de serveurs GPU bare-metal (g4 : 8× GPU T4, 64 vCPU) — isolation de 2 cœurs CPU/session, I/O sur ramdisk, 32 sessions AAA simultanées (Asphalt 9 : 3 sessions / GPU T4).</li>
+          <li>Intégration et amélioration d'un système <span class="tag">LXC/LXD</span> issu d'une R&amp;D Nvidia — résultats reconnus par les équipes Nvidia au-delà des attentes initiales.</li>
+          <li>Collaboration avec Canonical (<span class="tag">Anbox</span>, versions non commerciales LXC/LXD) et Ampere Computing (serveurs ARM pré-commerciaux).</li>
+          <li>Développement du système d'installation automatique de jeux sur AOSP et gestion des sauvegardes utilisateur (Android Backup + script custom).</li>
+          <li>Scripting <span class="tag">Bash</span> pour l'automatisation de l'infrastructure et du cycle de vie des instances.</li>
+        </ul>
+      </div>
+
+      <div class="xp-block">
+        <div class="xp-header">
+          <span class="xp-company">Deewee</span>
+          <span class="xp-dates">2017</span>
+        </div>
+        <div class="xp-role">Développeur C — Système embarqué <span class="xp-loc">· Ivry-sur-Seine</span></div>
+        <ul class="bullets">
+          <li>Développement en <span class="tag">C</span> sur Orange Pi (<span class="tag">Debian ARM</span>) interceptant le flux <span class="tag">ESC/POS</span> d'une imprimante thermique pour générer une image PNG du ticket avant impression.</li>
+          <li>Gestion <span class="tag">GPIO</span> physique (bouton) pour déclenchement conditionnel de l'impression avec timeout.</li>
+          <li>Hotspot WiFi embarqué + diffusion des credentials via antenne <span class="tag">NFC</span> (scan automatique depuis application mobile tierce).</li>
+          <li>Envoi de l'image générée en WiFi direct vers l'application mobile à la connexion.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="rule"></div>
+
+    <div class="section">
+      <div class="section-title">Formation</div>
+
+      <div class="edu-block">
+        <div class="edu-header">
+          <span class="edu-school">École 42</span>
+          <span class="edu-dates">2015 – 2019</span>
+        </div>
+        <div class="edu-degree">Programmation informatique <span class="xp-loc">· Clichy</span></div>
+        <div class="edu-detail">
+          <strong>Systèmes / Kernel :</strong> ft_linux &amp; kfs-1 (Linux From Scratch — bootloader ASM, GDT, interruptions, driver char device) · drivers &amp; interrupt · process &amp; memory · little penguin<br>
+          <strong>Bas niveau :</strong> malloc (allocateur mémoire) · nm (parsing ELF) · ft_ls · ft_select · 42sh (shell POSIX complet)<br>
+          <strong>Réseau / Sécurité :</strong> ft_ssl_md5 (crypto) · snow crash (exploitation système) · lem-in · push-swap · doctor quine
+        </div>
+      </div>
+
+      <div class="edu-block">
+        <div class="edu-header">
+          <span class="edu-school">Next Formation</span>
+          <span class="edu-dates">2013 – 2015</span>
+        </div>
+        <div class="edu-degree">TSRIT — Technicien Supérieur Réseaux &amp; Télécoms, <em>Félicitations du jury</em> <span class="xp-loc">· Vincennes</span></div>
+      </div>
+
+      <div class="edu-block">
+        <div class="edu-header">
+          <span class="edu-school">Lycée Rosa Parks</span>
+          <span class="edu-dates">2009 – 2013</span>
+        </div>
+        <div class="edu-degree">Bac S — génie informatique, électrique et mécanique <span class="xp-loc">· Montgeron</span></div>
+      </div>
+    </div>
+
+    <div class="rule"></div>
+
+    <div class="section">
+      <div class="section-title">Compétences techniques</div>
+      <div class="skills-grid">
+        <div class="skill-label">Langages</div>
+        <div class="skill-values">C · Rust · Java · Bash · Python · C++ (notions)</div>
+
+        <div class="skill-label">Embarqué</div>
+        <div class="skill-values">Linux kernel drivers · AOSP · ARM / x86 · GPIO · NFC · ESC/POS · Orange Pi · cross-compilation GCC</div>
+
+        <div class="skill-label">Conteneurs</div>
+        <div class="skill-values">Docker · LXC / LXD · QEMU · VMware · VirtualBox</div>
+
+        <div class="skill-label">Backend</div>
+        <div class="skill-values">Rust · WebSocket · architecture GPU bare-metal · ramdisk I/O</div>
+
+        <div class="skill-label">Systèmes</div>
+        <div class="skill-values">Linux bare-metal · AOSP · Android Backup · systemd · Windows · macOS</div>
+
+        <div class="skill-label">DevOps</div>
+        <div class="skill-values">Git · GitHub / GitLab · CI/CD · Gitflow · Agile (Scrum, Kanban)</div>
+
+        <div class="skill-label">IA / Outils</div>
+        <div class="skill-values">Claude Code (agents/skills custom) · N8N · automatisation · prompting avancé</div>
+
+        <div class="skill-label">Gestion</div>
+        <div class="skill-values">Trello · Jira · Confluence · Notion</div>
+      </div>
+    </div>
+
+    <div class="rule"></div>
+
+    <div class="two-col">
+      <div class="section">
+        <div class="section-title">Langues</div>
+        <div class="lang-row">
+          <div class="lang-item">Anglais <span class="level">C2</span></div>
+          <div class="lang-item">Espagnol <span class="level">B1</span></div>
+          <div class="lang-item">Français <span class="level">natif</span></div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Centres d'intérêt</div>
+        <div class="interests">
+          <span class="interest-tag">Voyage</span>
+          <span class="interest-tag">Sciences</span>
+          <span class="interest-tag">Astronomie</span>
+          <span class="interest-tag">Nature</span>
+          <span class="interest-tag">Jeux vidéo</span>
+          <span class="interest-tag">Musique</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer-bar">
+    <a href="https://bchanot.fr">bchanot.fr</a>
+    <span>Bastien Chanot · CV 2026</span>
+  </div>
+
+</div>
+</body>
+</html>

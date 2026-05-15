@@ -1,0 +1,15 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+*~
+
+# Local servers / caches
+.ctx7-cache/
+graphify-out/
+
+# Logs
+*.log
+
+# Local Claude settings (per-user overrides — keep .claude/ tracked otherwise)
+.claude/settings.local.json

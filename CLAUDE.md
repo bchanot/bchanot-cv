@@ -1,0 +1,130 @@
+# bchanot.fr — CLAUDE.md
+
+Single source of truth for Claude in this repo.
+Global rules: `~/.claude/CLAUDE.md` — this file extends or overrides them.
+
+---
+
+## Project overview
+
+Personal landing page + CV for Bastien Chanot (developer, systems & backend).
+Single-page static site served at https://bchanot.fr. Goal: a recruiter or CTO
+landing on the page decides whether to contact within 10 seconds.
+
+Audience: technical recruiters, CTOs, engineering managers. Use case: hub for
+contact + CV access. No tracking, no analytics, no cookie banner.
+
+---
+
+## Stack
+
+- Pure static HTML/CSS/JS — no framework, no build step.
+- Fonts: Google Fonts (`JetBrains Mono` mono, `Fraunces` display, `DM Sans` sans).
+- PDF generation for CV: `weasyprint` (from the matching HTML file).
+
+No package manager. No bundler. No runtime dependencies beyond Google Fonts.
+
+---
+
+## Files
+
+```
+index.html                  — landing page (single file, inline CSS + JS)
+CV_Bastien_Chanot.html      — CV (web version, linked from landing as "Voir le CV")
+CV_Bastien_Chanot.pdf       — CV (printable, served via "Télécharger PDF")
+README.md                   — repo readme
+CLAUDE.md                   — this file
+.claude/                    — Claude memory, tasks, audits
+```
+
+---
+
+## Serve locally
+
+```bash
+python3 -m http.server 8000 --bind 0.0.0.0
+# then visit http://192.168.1.101:8000/ from any device on the LAN
+```
+
+UFW may block the port — open it on demand only:
+
+```bash
+sudo ufw allow 8000/tcp
+```
+
+---
+
+## Regenerate CV PDF (after editing the HTML)
+
+```bash
+weasyprint CV_Bastien_Chanot.html CV_Bastien_Chanot.pdf
+```
+
+The PDF must match the latest HTML before pushing or sending.
+
+---
+
+## Design system (non-negotiable)
+
+Palette — exact hex:
+- `#0d1b12` — dark forest (nav, dark sections, footer)
+- `#1b5e3b` — green primary (links, section titles on light bg)
+- `#2d7a4f` — green accent (borders, dots, separators)
+- `#6ab98a` — green light (lisible on dark bg)
+- `#dff0e7` — green tint (pill bg)
+- `#f5f3ec` — parchment (page bg)
+
+Typography:
+- `Fraunces` (serif) — display: hero name, section titles, role headings
+- `JetBrains Mono` (mono) — eyebrows, badges, tech pills, nav, contact rows
+- `DM Sans` (sans) — body text
+
+Forbidden:
+- Pure white background (`#ffffff`)
+- `border-radius` > 6px except pills
+- Heavy SVG illustrations
+- Lorem ipsum or placeholder text
+- Mention of salary / TJM / pricing
+
+---
+
+## Project conventions
+
+- All CSS lives inline in `<head>` (`<style>`) — no external stylesheet.
+- All JS lives inline before `</body>` (`<script>`) — vanilla only.
+- CSS variables in `:root` for palette + typography + spacing scale.
+- Section comments in HTML: `<!-- HERO -->`, `<!-- ABOUT -->`, etc.
+- Sections semantic: `<header>`, `<main>`, `<section id="…">`, `<footer>`.
+- Mobile-first. Breakpoints: 768px (tablet), 1200px (desktop).
+- Animations CSS-only or vanilla JS. No GSAP, no Three.js, no Lottie.
+- `prefers-reduced-motion: reduce` must disable animation + smooth-scroll.
+
+---
+
+## Content rules
+
+- Only real information — never invent dates, companies, achievements.
+- French copy (audience is French market).
+- Profile state, including job search context, must stay consistent across
+  index.html and CV. Currently: looking for **CDI** in embedded / systems
+  software first; freelance missions (ZenQuality) in parallel.
+- Geography: Yerres (91) currently; targeting Pays de la Loire mid-term;
+  full remote preferred or hybrid 1–2 days/month if Paris.
+
+---
+
+## Exceptions to global rules
+
+None — global rules apply.
+
+---
+
+## Workflow expectations
+
+- Edits to `index.html` or `CV_Bastien_Chanot.html` must preserve the
+  palette + typography + structure unless explicitly asked to change them.
+- After editing `CV_Bastien_Chanot.html`, regenerate the PDF.
+- Never add external dependencies beyond Google Fonts.
+- Never add tracking, analytics, cookie banners or third-party scripts.
+- Always test in mobile width (375px) and desktop (1440px) before claiming done.
+- The HTTP server bound to `192.168.1.101:8000` is for local LAN testing only.
