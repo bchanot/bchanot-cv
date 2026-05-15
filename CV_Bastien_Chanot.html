@@ -429,9 +429,10 @@
         </div>
         <div class="xp-role">Développeur logiciel — Systèmes &amp; Backend <span class="xp-loc">· Paris · Full remote dès 2020</span></div>
         <ul class="bullets">
-          <li>Développement solo de drivers kernel Linux en <span class="tag">C</span> pour environnement AOSP (x86 / ARM) — adaptation de modules GPU, isolation CPU/GPU par instance de jeu.</li>
-          <li>Développement d'un backend <span class="tag">Rust</span> (~2 000 lignes) : communication WebSocket entre clients et instances, intégration <span class="tag">Docker</span> / <span class="tag">LXC</span> pour l'orchestration des conteneurs AOSP.</li>
-          <li>Développement de virtual touchscreen et virtual gamepad AOSP (<span class="tag">Java</span>), servant de drivers hôtes communicant avec le backend Rust.</li>
+          <li>Développement solo de modules kernel Linux en <span class="tag">C</span> (x86 / ARM) pour communiquer avec les instances AOSP conteneurisées — drivers d'interface hôte/conteneur.</li>
+          <li>Architecture d'isolation CPU/GPU par session : adaptation de modules GPU, partitionnement des cœurs CPU physiques et émulés, optimisation des accès concurrents sur les zones GPU partagées.</li>
+          <li>Participation au développement d'un backend <span class="tag">Rust</span> (~2 000 lignes) : communication WebSocket entre clients et instances, intégration <span class="tag">Docker</span> / <span class="tag">LXC</span> pour l'orchestration des conteneurs AOSP.</li>
+          <li>Développement de virtual touchscreen et virtual gamepad AOSP (<span class="tag">Java</span>) — récupération des inputs du frontend via le backend Rust, puis injection dans AOSP via les drivers hôtes.</li>
           <li>Architecture et optimisation de serveurs GPU bare-metal (g4 : 8× GPU T4, 64 vCPU) — isolation de 2 cœurs CPU/session, I/O sur ramdisk, 32 sessions AAA simultanées (Asphalt 9 : 3 sessions / GPU T4).</li>
           <li>Intégration et amélioration d'un système <span class="tag">LXC/LXD</span> issu d'une R&amp;D Nvidia — résultats reconnus par les équipes Nvidia au-delà des attentes initiales.</li>
           <li>Collaboration avec Canonical (<span class="tag">Anbox</span>, versions non commerciales LXC/LXD) et Ampere Computing (serveurs ARM pré-commerciaux).</li>
