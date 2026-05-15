@@ -553,6 +553,145 @@
     max-width: 64ch;
   }
 
+  /* ── FORMATION ── */
+  .formation { background: var(--page); }
+  .formation .timeline { border-left-color: var(--g100); }
+  .formation .timeline-item::before { box-shadow: 0 0 0 4px var(--page); }
+
+  .formation-school-desc {
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 300;
+    color: var(--ink-2);
+    line-height: 1.55;
+    max-width: 64ch;
+    margin-bottom: 20px;
+  }
+
+  .formation-themes {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 18px;
+    margin-top: 24px;
+  }
+  @media (min-width: 768px)  { .formation-themes { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1200px) { .formation-themes { grid-template-columns: repeat(3, 1fr); } }
+
+  .theme-card {
+    background: #fff;
+    border: 1px solid var(--rule);
+    border-radius: var(--r-md);
+    padding: 22px;
+    transition: border-color .25s ease, transform .25s ease, box-shadow .25s ease;
+    display: flex;
+    flex-direction: column;
+  }
+  .theme-card:hover {
+    border-color: var(--g300);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+  .theme-card-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 12px;
+    padding-bottom: 10px;
+    border-bottom: 1px dashed var(--rule);
+  }
+  .theme-card h4 {
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: 18px;
+    color: var(--ink-1);
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+  }
+  .theme-card-tag {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--g500);
+    letter-spacing: 0.1em;
+    flex-shrink: 0;
+  }
+  .theme-quote {
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 300;
+    color: var(--ink-2);
+    font-size: 14px;
+    line-height: 1.5;
+    padding-left: 12px;
+    border-left: 2px solid var(--g500);
+    margin-bottom: 16px;
+  }
+  .theme-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .theme-list li {
+    font-size: 13.5px;
+    line-height: 1.55;
+    color: var(--ink-2);
+  }
+  .theme-list code {
+    font-family: var(--mono);
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--g700);
+    background: var(--g050);
+    border: 1px solid var(--g100);
+    padding: 1px 7px;
+    border-radius: var(--r-sm);
+  }
+
+  .formation-tsrit-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 12px;
+    max-width: 64ch;
+  }
+  .formation-tsrit-list li {
+    color: var(--ink-2);
+    line-height: 1.55;
+    padding-left: 18px;
+    position: relative;
+  }
+  .formation-tsrit-list li::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 0.65em;
+    width: 8px; height: 1px;
+    background: var(--g500);
+  }
+  .formation-tsrit-list li strong { color: var(--ink-1); font-weight: 600; }
+
+  .honors {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--mono);
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--g700);
+    background: var(--g100);
+    border: 1px solid var(--g300);
+    padding: 6px 14px;
+    border-radius: var(--r-pill);
+    letter-spacing: 0.04em;
+    margin: 4px 0 14px;
+  }
+  .honors::before {
+    content: "★";
+    color: var(--g500);
+    font-size: 13px;
+  }
+
   /* ── CONTACT ── */
   .contact {
     background: var(--dark);
@@ -619,40 +758,8 @@
     word-break: break-word;
   }
 
-  .contact-side {
-    border: 1px solid rgba(106,185,138,0.2);
-    border-radius: var(--r-md);
-    padding: 24px;
-    background: rgba(13, 27, 18, 0.5);
-  }
-  .contact-side h3 {
-    font-family: var(--serif);
-    font-size: 20px;
-    color: #fff;
-    margin-bottom: 10px;
-  }
-  .contact-side p {
-    color: rgba(223, 240, 231, 0.85);
-    font-size: 14px;
-    line-height: 1.6;
-    margin-bottom: 16px;
-  }
-  .contact-side .education {
-    list-style: none;
-    border-top: 1px solid rgba(106,185,138,0.15);
-    padding-top: 16px;
-    margin-top: 16px;
-  }
-  .contact-side .education li {
-    font-family: var(--mono);
-    font-size: 12px;
-    color: rgba(223, 240, 231, 0.7);
-    margin-bottom: 6px;
-  }
-  .contact-side .education strong { color: var(--g100); font-weight: 600; }
-
   @media (min-width: 768px) {
-    .contact-grid { grid-template-columns: 1.4fr 1fr; gap: 48px; }
+    .contact-list { grid-template-columns: repeat(2, 1fr); }
   }
 
   /* ── FOOTER ── */
@@ -708,6 +815,7 @@
         <li><a href="#about">À propos</a></li>
         <li><a href="#stack">Stack</a></li>
         <li><a href="#experience">Parcours</a></li>
+        <li><a href="#formation">Formation</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
     </nav>
@@ -912,6 +1020,92 @@
     </div>
   </section>
 
+  <!-- FORMATION -->
+  <section id="formation" class="formation" aria-labelledby="formation-title">
+    <div class="container">
+      <span class="section-label">Formation</span>
+      <h2 id="formation-title" class="section-title">Formation</h2>
+      <p class="section-intro"><em>Le socle technique derrière sept ans de production.</em></p>
+
+      <ol class="timeline">
+
+        <li class="timeline-item">
+          <div class="timeline-meta">
+            <span class="period">2015 — 2019</span>
+            <span>Clichy</span>
+          </div>
+          <h3>École 42</h3>
+          <p class="timeline-role">Programmation par projets · sans cours, sans notes</p>
+          <p class="formation-school-desc">Uniquement du code qui passe ou qui ne passe pas.</p>
+
+          <div class="formation-themes">
+
+            <article class="theme-card">
+              <header class="theme-card-head">
+                <h4>Systèmes &amp; Kernel</h4>
+                <span class="theme-card-tag">// 01</span>
+              </header>
+              <p class="theme-quote">Bootstrap d'OS, drivers, gestion matérielle, allocation mémoire.</p>
+              <ul class="theme-list">
+                <li><code>ft_linux</code> &amp; <code>kfs-1</code> — Linux From Scratch et noyau minimaliste : bootloader ASM, GDT, interruptions, driver char device clavier mappé.</li>
+                <li><code>drivers &amp; interrupt</code> — drivers kernel Linux et gestion d'interruptions niveau noyau.</li>
+                <li><code>process &amp; memory</code> — modèle de processus Unix, gestion mémoire kernel.</li>
+                <li><code>little penguin</code> — contribution kernel Linux : style guide, patch submission, contrib upstream.</li>
+                <li><code>malloc</code> — allocateur mémoire complet (libft_malloc.so) avec mmap, zones tiny / small / large.</li>
+              </ul>
+            </article>
+
+            <article class="theme-card">
+              <header class="theme-card-head">
+                <h4>Bas niveau &amp; Outils système</h4>
+                <span class="theme-card-tag">// 02</span>
+              </header>
+              <p class="theme-quote">Recoder les outils qu'on utilise tous les jours pour comprendre vraiment ce qu'ils font.</p>
+              <ul class="theme-list">
+                <li><code>nm</code> — parsing d'exécutables ELF, tables de symboles.</li>
+                <li><code>42sh</code> / <code>21</code> — shell POSIX complet : parser, redirections, jobs, history, autocomplétion.</li>
+                <li><code>ft_ls</code> — réimplémentation <code>ls</code> avec options POSIX, permissions, tri, formats.</li>
+                <li><code>ft_select</code> — TUI custom avec gestion termios, signaux, redessin partiel.</li>
+              </ul>
+            </article>
+
+            <article class="theme-card">
+              <header class="theme-card-head">
+                <h4>Sécurité &amp; Algorithmie</h4>
+                <span class="theme-card-tag">// 03</span>
+              </header>
+              <p class="theme-quote">Comprendre comment un système peut être cassé pour savoir le sécuriser.</p>
+              <ul class="theme-list">
+                <li><code>snow crash</code> — wargame exploitation système : escalation de privilèges, stack overflow, format string, race conditions.</li>
+                <li><code>doctor quine</code> — programme auto-réplicatif (métaprogrammation).</li>
+                <li><code>ft_ssl_md5</code> — réimplémentation MD5, SHA-256, base64.</li>
+                <li><code>lem-in</code>, <code>push-swap</code> — algorithmique : pathfinding (Edmonds-Karp), optimisation de tri sous contrainte.</li>
+              </ul>
+            </article>
+
+          </div>
+        </li>
+
+        <li class="timeline-item">
+          <div class="timeline-meta">
+            <span class="period">2013 — 2015</span>
+            <span>Vincennes</span>
+          </div>
+          <h3>TSRIT — Next Formation</h3>
+          <p class="timeline-role">BTS Technicien Supérieur Réseaux Informatiques &amp; Télécoms</p>
+          <span class="honors">Félicitations du jury</span>
+          <p class="timeline-desc">Le socle réseau et infrastructure derrière les compétences systèmes.</p>
+          <ul class="formation-tsrit-list">
+            <li>Architecture réseau (<strong>OSI</strong>, <strong>TCP/IP</strong>), routage, commutation.</li>
+            <li>Administration <strong>Linux</strong> / <strong>Windows Server</strong>, sécurité réseau, virtualisation.</li>
+            <li>Stage final transformé en <strong>CDI chez CareGame</strong>.</li>
+          </ul>
+        </li>
+
+      </ol>
+    </div>
+  </section>
+
   <!-- CONTACT -->
   <section id="contact" class="contact section-dark" aria-labelledby="contact-title">
     <div class="container">
@@ -963,15 +1157,6 @@
           </li>
 
         </ul>
-
-        <aside class="contact-side">
-          <h3>Formation</h3>
-          <p>Formation par la pratique et le bas niveau — kernel, mémoire, shell, sécurité.</p>
-          <ul class="education">
-            <li><strong>École 42</strong> · Clichy · 2015–2019<br>kernel, malloc, shell, sécurité</li>
-            <li><strong>TSRIT</strong> · Next Formation · 2013–2015<br>Félicitations du jury</li>
-          </ul>
-        </aside>
       </div>
     </div>
   </section>
