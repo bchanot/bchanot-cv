@@ -25,3 +25,4 @@ rules:
 - Certbot install failed for `bchanot.fr`: diagnosed mismatch — `sites-available/bchanot.fr` contained `server_name autreprojet.fr;` (copy-paste leftover). Fix: sed rewrite. Learning logged LRN-001.
 - Commits: `54e8300..7957b04` + user's `414bce1` (CV final).
 - Dedicated `#formation` section added between Parcours + Contact: timeline reused, 3 theme-cards inside École 42 entry (Systèmes/Kernel · Bas niveau · Sécurité/Algo), TSRIT block with `Félicitations du jury` honors pill. Removed `.contact-side` aside + dead CSS, `.contact-list` 2-col on >=768px to fill freed space. Nav link inserted. Commit `1d5fbfa`.
+- Formation copy fix: title now "Deux écoles, un fil rouge : le bas niveau."; strip `<em>` from section-intro for consistency; rewrite École 42 role+desc (kernel/memory/shell/security); drop false TSRIT li claiming CareGame CDI (CareGame stage was 2018-2019 during 42, not 2015 TSRIT). 1 file, +4/-5.
