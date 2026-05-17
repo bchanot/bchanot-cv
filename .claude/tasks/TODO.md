@@ -34,7 +34,8 @@ Align landing with CV + add depth (Projets, Méthode, bullet-format Parcours).
 - Verify WCAG AA contrast on all green-on-parchment text.
 - Hosting decision: GitHub Pages vs Netlify vs Vercel vs nginx VPS — pending.
 - DNS / domain config for `bchanot.fr` — pending.
-- Consider OG image + favicon — not yet present.
+- Consider OG image — not yet present.
+- Mirror favicon link block into `CV_Bastien_Chanot.html` when user finalizes CV edits (currently /favicon.ico auto-served as legacy fallback).
 
 ## Open ideas (not committed)
 
