@@ -26,6 +26,7 @@ rules:
 | BDR-002 | 2026-05-15 | weasyprint pour PDF CV depuis HTML | accepted |
 | BDR-003 | 2026-05-15 | Position pro: CDI prioritaire, freelance parallèle | accepted |
 | BDR-004 | 2026-05-15 | Containerize site with nginx:alpine behind reverse proxy | accepted |
+| BDR-005 | 2026-05-17 | Favicon: SVG primary + PIL raster fallback | accepted |
 
 ---
 
@@ -79,3 +80,18 @@ rules:
   - Bare static files served by host nginx — no isolation, config drift between sites, harder rollback.
   - Caddy / Traefik container — overkill for 1 static site, host nginx already handles TLS for other domains.
 - **Reference**: `Dockerfile`, `nginx.conf`, `docker-compose.yml`, `.env.example`.
+
+---
+
+## BDR-005 — Favicon: SVG primary + PIL raster fallback
+
+- **Date**: 2026-05-17
+- **Status**: accepted
+- **Decision**: Ship `favicon.svg` (vector primary) + PIL-generated `favicon-32.png`, `favicon.ico` (16/24/32/48), `apple-touch-icon.png` (180×180). 4 `<link>` tags in `<head>` of `index.html`.
+- **Why**: Modern browsers fetch SVG (sharp any DPI). Legacy + iOS fall back ICO/PNG. PIL preinstalled on host → zero new dep. Mark replicates `.brand::before` pulse-dot (visual continuity with nav).
+- **Alternatives rejected**:
+  - `rsvg-convert` / `inkscape` for SVG→PNG — not installed on host, setup friction.
+  - SVG-only — drops Safari <14 + iOS home-screen.
+  - Online favicon generator — external dep, opaque rendering, no source control.
+- **CV HTML**: not modified (user's WIP M state). Browser auto-fetches `/favicon.ico` from root → CV tab still shows icon. Link block mirror logged in `.claude/tasks/TODO.md` for later.
+- **Reference**: `favicon.svg`, `favicon-32.png`, `favicon.ico`, `apple-touch-icon.png`, `index.html` head, commit `ef31fb3`.
