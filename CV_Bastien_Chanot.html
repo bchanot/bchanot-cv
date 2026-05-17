@@ -59,9 +59,9 @@
   .cv-header {
     background: var(--dark);
     background-image: radial-gradient(ellipse 120% 200% at 0% 50%, var(--dark-mid) 0%, var(--dark) 60%);
-    padding: 22px 20mm 18px;
-    display: grid;
-    grid-template-columns: 1fr auto;
+    padding: 18px 20mm 14px;
+    display: flex;
+    justify-content: space-between;
     gap: 20px;
     align-items: center;
     position: relative;
@@ -93,6 +93,7 @@
     color: #fff;
     line-height: 1;
     letter-spacing: -0.5px;
+    white-space: nowrap;
   }
 
   .header-title {
@@ -113,7 +114,7 @@
     color: rgba(255,255,255,0.55);
     line-height: 1.8;
     white-space: nowrap;
-    min-width: 210px;
+    min-width: 240px;
     flex-shrink: 0;
   }
   .contact-sep {
@@ -129,7 +130,7 @@
 
   /* ── BODY ── */
   .cv-body {
-    padding: 14px 20mm 16px;
+    padding: 10px 20mm 12px;
     background:
       url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='6' height='6'%3E%3Ccircle cx='1' cy='1' r='0.6' fill='rgba(26,71,48,0.05)'/%3E%3C/svg%3E"),
       linear-gradient(160deg, #f5f3ec 0%, #edeadf 55%, #f2efe6 100%);
@@ -139,22 +140,22 @@
     font-family: var(--serif);
     font-style: italic;
     font-weight: 400;
-    font-size: 11.5pt;
+    font-size: 11pt;
     color: var(--ink-2);
-    line-height: 1.7;
+    line-height: 1.55;
     border-left: 3px solid var(--g500);
-    padding: 6px 0 6px 12px;
-    margin: 14px 0;
+    padding: 5px 0 5px 12px;
+    margin: 8px 0;
     background: linear-gradient(to right, rgba(14,51,32,0.04), transparent);
   }
 
   .rule {
     height: 1px;
     background: linear-gradient(to right, var(--rule), rgba(216,212,200,0));
-    margin: 10px 0;
+    margin: 5px 0;
   }
 
-  .section { margin-bottom: 13px; }
+  .section { margin-bottom: 6px; }
 
   .section-title {
     font-family: var(--mono);
@@ -163,7 +164,7 @@
     letter-spacing: 2.5px;
     text-transform: uppercase;
     color: var(--g700);
-    margin-bottom: 9px;
+    margin-bottom: 7px;
     display: flex;
     align-items: center;
     gap: 8px;
@@ -177,7 +178,7 @@
   }
 
   /* ── XP ── */
-  .xp-block { margin-bottom: 11px; }
+  .xp-block { margin-bottom: 6px; }
 
   .xp-header {
     display: flex;
@@ -207,7 +208,7 @@
     font-size: 10pt;
     font-weight: 500;
     color: var(--g700);
-    margin-bottom: 5px;
+    margin-bottom: 3px;
   }
 
   .xp-loc {
@@ -216,16 +217,24 @@
     font-style: italic;
   }
 
+  .xp-contract {
+    font-size: 8.5pt;
+    color: var(--ink-3);
+    font-style: italic;
+    margin-bottom: 3px;
+    margin-top: -2px;
+  }
+
   ul.bullets { list-style: none; }
 
   ul.bullets li {
     padding-left: 13px;
     position: relative;
-    margin-bottom: 3px;
-    font-size: 10.5pt;
+    margin-bottom: 2px;
+    font-size: 10pt;
     font-weight: 500;
     color: var(--ink-2);
-    line-height: 1.55;
+    line-height: 1.45;
   }
 
   ul.bullets li::before {
@@ -250,11 +259,59 @@
     white-space: nowrap;
   }
 
+  /* ── PROJECTS ── */
+  .project-block { margin-bottom: 5px; }
+
+  .project-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 1px;
+  }
+
+  .project-name {
+    font-family: var(--mono);
+    font-size: 10.5pt;
+    font-weight: 700;
+    color: var(--ink-1);
+  }
+
+  .project-tagline {
+    font-size: 10pt;
+    font-weight: 500;
+    color: var(--g700);
+    font-style: italic;
+  }
+
+  .project-dates {
+    font-family: var(--mono);
+    font-size: 8pt;
+    color: var(--ink-3);
+    white-space: nowrap;
+    background: var(--tag);
+    padding: 1px 6px;
+    border-radius: 2px;
+  }
+
+  .project-desc {
+    font-size: 10pt;
+    font-weight: 500;
+    color: var(--ink-2);
+    line-height: 1.45;
+  }
+
+  .project-link {
+    font-family: var(--mono);
+    font-size: 8pt;
+    color: var(--g500);
+    margin-top: 1px;
+  }
+
   /* ── SKILLS ── */
   .skills-grid {
     display: grid;
-    grid-template-columns: 88px 1fr;
-    gap: 4px 10px;
+    grid-template-columns: 100px 1fr;
+    gap: 1px 10px;
     font-size: 8.4pt;
 
   }
@@ -267,10 +324,10 @@
     padding-top: 1px;
   }
 
-  .skill-values { font-size: 10.5pt; font-weight: 500; color: var(--ink-2); }
+  .skill-values { font-size: 10pt; font-weight: 500; color: var(--ink-2); }
 
   /* ── EDU ── */
-  .edu-block { margin-bottom: 9px; }
+  .edu-block { margin-bottom: 5px; }
 
   .edu-header {
     display: flex;
@@ -315,39 +372,38 @@
     gap: 0 20px;
   }
 
-  .lang-row { display: flex; gap: 5px; flex-wrap: wrap; }
+  .lang-row { display: flex; gap: 4px; flex-wrap: wrap; }
 
   .lang-item {
     font-family: var(--mono);
-    font-size: 9pt;
+    font-size: 8.5pt;
     color: var(--g900);
     background: var(--g100);
-    border: 1px solid #a8d4bc;
-    padding: 3px 10px;
-    border-radius: 12px;
+    padding: 2px 8px;
+    border-radius: 10px;
   }
 
   .lang-item .level {
     color: var(--ink-3);
-    font-size: 8pt;
+    font-size: 7.5pt;
   }
 
-  .interests { display: flex; flex-wrap: wrap; gap: 5px; }
+  .interests { display: flex; flex-wrap: wrap; gap: 4px; }
 
   .interest-tag {
     font-family: var(--mono);
-    font-size: 9pt;
+    font-size: 8.5pt;
     color: var(--g900);
     background: var(--g100);
-    border: 1px solid #a8d4bc;
-    padding: 3px 10px;
-    border-radius: 12px;
+    padding: 2px 8px;
+    border-radius: 10px;
   }
 
   /* ── FOOTER ── */
   .footer-bar {
+    position: running(siteFooter);
     background: var(--dark);
-    padding: 7px 20mm;
+    padding: 5px 20mm;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -369,13 +425,67 @@
 
   /* ── PRINT ── */
   @media print {
-    body { background: white; padding: 0; }
+    body {
+      background:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='6' height='6'%3E%3Ccircle cx='1' cy='1' r='0.6' fill='rgba(26,71,48,0.05)'/%3E%3C/svg%3E"),
+        linear-gradient(160deg, #f5f3ec 0%, #edeadf 55%, #f2efe6 100%);
+      padding: 0;
+    }
     .screen-label { display: none; }
-    .page { box-shadow: none; }
+    .page { box-shadow: none; background: transparent; }
     .cv-header { padding: 18px 14mm 14px; }
-    .cv-body { padding: 12px 14mm 14px; }
-    .footer-bar { padding: 6px 14mm; }
-    @page { size: A4; margin: 0; }
+    .cv-body { padding: 10px 14mm 12px; background: transparent; }
+
+    /* Saut de page forcé avant Deewee */
+    .break-before-page {
+      break-before: page;
+      page-break-before: always;
+    }
+
+    /* Cache le footer HTML, remplacé par le footer @page (auto-numéroté) */
+    .footer-bar { display: none; }
+
+    /* Footer pleine largeur sur chaque page, avec numérotation auto */
+    @page {
+      size: A4;
+      margin: 0 0 8mm 0;
+
+      @bottom-left-corner {
+        content: "\00a0";
+        background: #0d1b12;
+      }
+      @bottom-left {
+        content: "bchanot.fr";
+        background: #0d1b12;
+        color: #6ab98a;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 6.8pt;
+        padding-left: 20mm;
+        text-align: left;
+        vertical-align: middle;
+        width: 80mm;
+      }
+      @bottom-center {
+        content: "\00a0";
+        background: #0d1b12;
+        width: 50mm;
+      }
+      @bottom-right {
+        content: "Bastien Chanot · CV 2026 · " counter(page) "/" counter(pages);
+        background: #0d1b12;
+        color: rgba(255, 255, 255, 0.5);
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 6.8pt;
+        padding-right: 20mm;
+        text-align: right;
+        vertical-align: middle;
+        width: 80mm;
+      }
+      @bottom-right-corner {
+        content: "\00a0";
+        background: #0d1b12;
+      }
+    }
   }
 </style>
 </head>
@@ -387,23 +497,25 @@
   <div class="cv-header">
     <div>
       <div class="header-name">Bastien Chanot</div>
-      <div class="header-title">Développeur confirmé &nbsp;·&nbsp; Systèmes &amp; Backend</div>
+      <div class="header-title">Développeur Systèmes &nbsp;·&nbsp; Embarqué &nbsp;·&nbsp; Backend</div>
     </div>
     <div class="header-contact">
-      <a href="tel:+33778822297">+33 7 78 82 22 97</a><br>
-      <a href="mailto:chanot.bastien@gmail.com">chanot.bastien@gmail.com</a><br>
-      Yerres → Reloc. Pays de la Loire<br>
-      Open full remote <span class="contact-sep">|</span> Permis B &amp; A
+      <a href="tel:+33778822297">+33 7 78 82 22 97</a> <span class="contact-sep">·</span> <a href="mailto:bastien@bchanot.fr">bastien@bchanot.fr</a><br>
+      Yerres (91) · installation région nantaise prévue<br>
+      Full remote <span class="contact-sep">·</span> hybride Nantes <span class="contact-sep">·</span> ou 1–2 j/mois Paris<br>
+      Permis B &amp; A<br>
+      <a href="https://github.com/bchanot">github.com/bchanot</a> <span class="contact-sep">·</span> <a href="https://bchanot.fr">bchanot.fr</a>
     </div>
   </div>
 
   <div class="cv-body">
 
     <div class="accroche">
-      Développeur systèmes confirmé (7 ans), spécialisé en C/Rust/Java sur Linux bare-metal, kernel drivers et environnements AOSP.
-      Expérience étendue sur l'architecture et l'exploitation de serveurs GPU haute densité, la conteneurisation LXC/LXD,
-      et le développement système embarqué de bout en bout. Habitué à opérer seul sur des périmètres larges,
-      de la couche kernel au backend réseau.
+      Développeur systèmes senior, 7 ans en C sur Linux bare-metal, kernel drivers et AOSP.
+      Architecte d'une plateforme cloud gaming en production (kernel, conteneurs AOSP, backend Rust temps réel,
+      fleet GPU bare-metal) servant plusieurs centaines de joueurs simultanés.
+      Collaboration technique directe avec Canonical (Anbox) et Nvidia.
+      En recherche d'un CDI systèmes ou embarqué.
     </div>
 
     <div class="rule"></div>
@@ -418,7 +530,9 @@
         </div>
         <div class="xp-role">Développeur indépendant <span class="xp-loc">· Yerres · <a href="https://zenquality.fr" style="color:var(--g500);text-decoration:none;border-bottom:1px solid var(--g300);">zenquality.fr</a></span></div>
         <ul class="bullets">
-          <li>Développement logiciel et conseil technique en indépendant — systèmes, backend, infrastructure.</li>
+          <li>Mission SEO et conformité légale RGPD pour PME service (Île-de-France) — audit technique Core Web Vitals + Schema.org + NAP, refonte CGV B2B/B2C, RGPD, mentions légales, mise en conformité médiateur CM2C. Plan d'action 12 sprints.</li>
+          <li>Site vitrine WordPress (<span class="tag">Gutenverse</span>) pour PME esthétique — conception, intégration, déploiement et support continu (hébergement client).</li>
+          <li>Setup et auto-hébergement de l'infra ZenQuality sur VPS <span class="tag">Scaleway</span> — stack <span class="tag">Astro</span> / <span class="tag">React</span> / <span class="tag">PHP 8</span> / <span class="tag">PostgreSQL</span> conteneurisée <span class="tag">Docker</span>, déploiement automatisé, pipeline de production complet.</li>
         </ul>
       </div>
 
@@ -429,30 +543,62 @@
         </div>
         <div class="xp-role">Développeur logiciel — Systèmes &amp; Backend <span class="xp-loc">· Paris · Full remote dès 2020</span></div>
         <ul class="bullets">
-          <li>Développement solo de modules kernel Linux en <span class="tag">C</span> (x86 / ARM) pour communiquer avec les instances AOSP conteneurisées — drivers d'interface hôte/conteneur.</li>
-          <li>Architecture d'isolation CPU/GPU par session : adaptation de modules GPU, partitionnement des cœurs CPU physiques et émulés, optimisation des accès concurrents sur les zones GPU partagées.</li>
-          <li>Participation au développement d'un backend <span class="tag">Rust</span> (~2 000 lignes) : communication WebSocket entre clients et instances, intégration <span class="tag">Docker</span> / <span class="tag">LXC</span> pour l'orchestration des conteneurs AOSP.</li>
-          <li>Développement de virtual touchscreen et virtual gamepad AOSP (<span class="tag">Java</span>) — récupération des inputs du frontend via le backend Rust, puis injection dans AOSP via les drivers hôtes.</li>
-          <li>Architecture et optimisation de serveurs GPU bare-metal (g4 : 8× GPU T4, 64 vCPU) — isolation de 2 cœurs CPU/session, I/O sur ramdisk, 32 sessions AAA simultanées (Asphalt 9 : 3 sessions / GPU T4).</li>
-          <li>Intégration et amélioration d'un système <span class="tag">LXC/LXD</span> issu d'une R&amp;D Nvidia — résultats reconnus par les équipes Nvidia au-delà des attentes initiales.</li>
-          <li>Collaboration avec Canonical (<span class="tag">Anbox</span>, versions non commerciales LXC/LXD) et Ampere Computing (serveurs ARM pré-commerciaux).</li>
-          <li>Développement du système d'installation automatique de jeux sur AOSP et gestion des sauvegardes utilisateur (Android Backup + script custom).</li>
-          <li>Scripting <span class="tag">Bash</span> pour l'automatisation de l'infrastructure et du cycle de vie des instances.</li>
+          <li>Conception et maintenance de modules kernel Linux en <span class="tag">C</span> (x86 / ARM) — drivers d'interface hôte/conteneur orchestrant la communication bidirectionnelle entre Linux hôte et instances AOSP conteneurisées.</li>
+          <li>Conception de l'isolation CPU/GPU par session sur la fleet bare-metal — adaptation de modules GPU Nvidia, partitionnement 2 cœurs/session (physiques et émulés), sérialisation des accès concurrents sur zones GPU partagées. Résultat : passage à 32 sessions AAA stables/serveur.</li>
+          <li>Co-développement du backend <span class="tag">Rust</span> orchestrant le cycle de vie des conteneurs AOSP — communication WebSocket temps réel clients ↔ instances, intégration <span class="tag">Docker</span> et <span class="tag">LXC</span>, scheduling des sessions sur la fleet GPU.</li>
+          <li>Développement de virtual input devices AOSP en <span class="tag">Java</span> (touchscreen, gamepad) — pipeline complet inputs frontend → backend Rust → drivers hôtes → injection AOSP, optimisé pour latence temps réel gameplay AAA.</li>
+          <li>Architecture et exploitation de fleet GPU bare-metal <span class="tag">AWS g4dn.metal</span> (8× GPU T4, 64 vCPU, ~20 serveurs en pic) — isolation 2 cœurs CPU/session, ramdisk I/O, 32 sessions AAA simultanées par serveur. Plusieurs centaines de joueurs servis en parallèle (Asphalt 9 : 3 sessions / GPU T4).</li>
+          <li>Reprise et hardening d'un PoC <span class="tag">LXD</span> + <span class="tag">Docker</span> issu d'une R&amp;D Nvidia (intégration côté Docker principalement) — adaptation à la production cloud gaming, débogage kernel/conteneur, performance validée par les équipes Nvidia comme dépassant le scope initial du PoC.</li>
+          <li>Collaboration technique directe en anglais avec Canonical (<span class="tag">Anbox</span> + builds LXC/LXD non commerciaux, remontée bugs et feature requests) et Ampere Computing (intégration et benchmark de serveurs ARM pré-commerciaux pour évaluation de migration de fleet).</li>
+          <li>Pipeline d'installation automatique de jeux AOSP et persistance des sauvegardes utilisateur — fusion Android Backup natif + scripts custom pour couvrir les cas non gérés nativement (DRM, données externes).</li>
+          <li>Développement d'un outil d'orchestration <span class="tag">Bash</span> modulaire (1000+ lignes) pour la gestion du cycle de vie des conteneurs et l'intégration en production — parsing avancé des arguments Docker, préparation et lancement automatisé des conteneurs AOSP, brique appelée par la CI et le backend Rust.</li>
         </ul>
       </div>
 
-      <div class="xp-block">
+      <div class="xp-block break-before-page">
         <div class="xp-header">
           <span class="xp-company">Deewee</span>
-          <span class="xp-dates">2017</span>
+          <span class="xp-dates">Fév. 2017 – Nov. 2017</span>
         </div>
         <div class="xp-role">Développeur C — Système embarqué <span class="xp-loc">· Ivry-sur-Seine</span></div>
+        <div class="xp-contract">Stage 42 (6 mois) puis CDD (4 mois)</div>
         <ul class="bullets">
-          <li>Développement en <span class="tag">C</span> sur Orange Pi (<span class="tag">Debian ARM</span>) interceptant le flux <span class="tag">ESC/POS</span> d'une imprimante thermique pour générer une image PNG du ticket avant impression.</li>
-          <li>Gestion <span class="tag">GPIO</span> physique (bouton) pour déclenchement conditionnel de l'impression avec timeout.</li>
-          <li>Hotspot WiFi embarqué + diffusion des credentials via antenne <span class="tag">NFC</span> (scan automatique depuis application mobile tierce).</li>
-          <li>Envoi de l'image générée en WiFi direct vers l'application mobile à la connexion.</li>
+          <li>Développement du logiciel embarqué en <span class="tag">C</span> pour boîtier connecté basé Orange Pi (<span class="tag">Debian ARM</span>) — interception du flux <span class="tag">ESC/POS</span> d'une imprimante thermique, génération PNG du ticket, transfert WiFi direct vers application mobile à la connexion.</li>
+          <li>Intégration matérielle : <span class="tag">GPIO</span> physique (bouton + timeout), hotspot WiFi embarqué avec diffusion des credentials via <span class="tag">NFC</span> pour appairage automatique.</li>
         </ul>
+      </div>
+    </div>
+
+    <div class="rule"></div>
+
+    <div class="section">
+      <div class="section-title">Projets &amp; Réalisations</div>
+
+      <div class="project-block">
+        <div class="project-header">
+          <div>
+            <span class="project-name">Code source &amp; projets persos</span>
+            <span class="project-tagline"> — serveur Git auto-hébergé en production</span>
+          </div>
+          <span class="project-dates">en continu</span>
+        </div>
+        <div class="project-desc">
+          Configuration Claude Code, dotfiles, projets bas-niveau (42, expérimentations C/Rust) — accessibles publiquement. Mirror automatique vers GitHub via push hook.
+        </div>
+        <div class="project-link"><a href="https://git.bchanot.fr/bchanot" style="color:var(--g500);text-decoration:none;border-bottom:1px solid var(--g300);">git.bchanot.fr/bchanot</a></div>
+      </div>
+
+      <div class="project-block">
+        <div class="project-header">
+          <div>
+            <span class="project-name">Homelab</span>
+            <span class="project-tagline"> — Infrastructure personnelle</span>
+          </div>
+          <span class="project-dates">en continu</span>
+        </div>
+        <div class="project-desc">
+          Auto-hébergement Git (<span class="tag">Gogs</span>) / DNS / VPN / SMB — NAS Asustor, Freebox <span class="tag">WireGuard</span> VPN site-to-site, Pi-hole, segmentation réseau, hardening <span class="tag">fail2ban</span>, <span class="tag">gocryptfs</span> sur dossiers sensibles.
+        </div>
       </div>
     </div>
 
@@ -481,14 +627,6 @@
         </div>
         <div class="edu-degree">TSRIT — Technicien Supérieur Réseaux &amp; Télécoms, <em>Félicitations du jury</em> <span class="xp-loc">· Vincennes</span></div>
       </div>
-
-      <div class="edu-block">
-        <div class="edu-header">
-          <span class="edu-school">Lycée Rosa Parks</span>
-          <span class="edu-dates">2009 – 2013</span>
-        </div>
-        <div class="edu-degree">Bac S — génie informatique, électrique et mécanique <span class="xp-loc">· Montgeron</span></div>
-      </div>
     </div>
 
     <div class="rule"></div>
@@ -497,28 +635,31 @@
       <div class="section-title">Compétences techniques</div>
       <div class="skills-grid">
         <div class="skill-label">Langages</div>
-        <div class="skill-values">C · Rust · Java · Bash · Python · C++ (notions)</div>
+        <div class="skill-values">C · Rust · Bash · Python · Java (AOSP/Android)</div>
 
         <div class="skill-label">Embarqué</div>
         <div class="skill-values">Linux kernel drivers · AOSP · ARM / x86 · GPIO · NFC · ESC/POS · Orange Pi · cross-compilation GCC</div>
 
         <div class="skill-label">Conteneurs</div>
-        <div class="skill-values">Docker · LXC / LXD · QEMU · VMware · VirtualBox</div>
+        <div class="skill-values">Docker · LXC / LXD · QEMU · cgroups · namespaces</div>
 
         <div class="skill-label">Backend</div>
         <div class="skill-values">Rust · WebSocket · architecture GPU bare-metal · ramdisk I/O</div>
 
         <div class="skill-label">Systèmes</div>
-        <div class="skill-values">Linux bare-metal · AOSP · Android Backup · systemd · Windows · macOS</div>
+        <div class="skill-values">Linux bare-metal · AOSP · Android Backup · systemd · SELinux</div>
+
+        <div class="skill-label">Cloud / Infra</div>
+        <div class="skill-values">AWS (EC2, g4dn bare-metal, IAM, S3, CloudWatch) · Scaleway VPS · OVH / Hetzner · Nginx · Apache · Let's Encrypt</div>
 
         <div class="skill-label">DevOps</div>
-        <div class="skill-values">Git · GitHub / GitLab · CI/CD · Gitflow · Agile (Scrum, Kanban)</div>
+        <div class="skill-values">Git · GitHub Actions · GitLab · CI/CD</div>
 
         <div class="skill-label">IA / Outils</div>
-        <div class="skill-values">Claude Code (agents/skills custom) · N8N · automatisation · prompting avancé</div>
+        <div class="skill-values">Claude Code (agents/skills custom) · N8N · automatisation</div>
 
-        <div class="skill-label">Gestion</div>
-        <div class="skill-values">Trello · Jira · Confluence · Notion</div>
+        <div class="skill-label">Familier avec</div>
+        <div class="skill-values">C++</div>
       </div>
     </div>
 
