@@ -13,6 +13,7 @@ RUN rm -rf ./*
 COPY index.html ./
 COPY CV_Bastien_Chanot.html ./
 COPY CV_Bastien_Chanot.pdf ./
+COPY favicon.svg favicon-32.png favicon.ico apple-touch-icon.png ./
 
 # Non-root hardening: nginx:alpine already drops privileges to "nginx" user
 # for worker processes. Master runs as root only to bind port 80 inside
