@@ -13,6 +13,11 @@ Static single-page site (no framework, no build step). Lives at https://bchanot.
 | `CV_Bastien_Chanot.pdf`       | CV — printable, served via "Télécharger PDF" |
 | `CLAUDE.md`                   | Project rules for the Claude assistant |
 | `.claude/`                    | Memory registries, tasks, audits |
+| `Dockerfile`                  | Container image build — copies static assets into nginx |
+| `docker-compose.yml`          | Service def — host port, hardening (read-only, cap_drop), tmpfs |
+| `nginx.conf`                  | In-container nginx — security headers, CSP, gzip, cache |
+| `.env.example`                | Sample env — `PORT` for the host bind |
+| `favicon.*`, `apple-touch-icon.png` | Favicon set — SVG primary + ICO/PNG + 180×180 apple-touch |
 
 ## Local preview
 
@@ -70,9 +75,22 @@ WCAG AA contrast. Focus visible. Semantic HTML.
 
 ## Deploy
 
-Static files — drop `index.html`, `CV_Bastien_Chanot.html`, and
-`CV_Bastien_Chanot.pdf` onto any static host (Netlify, Vercel, GitHub Pages,
-plain nginx) at the root.
+Production runs as a Docker container (`bchanot-web`, `nginx:1.27-alpine`)
+behind the host's nginx reverse proxy, which terminates TLS and `proxy_pass`es
+to it. The host port is set via `PORT` (default 8080) and bound to `127.0.0.1`,
+so all traffic goes through the front proxy.
+
+```bash
+cp .env.example .env   # optional: set PORT
+docker compose up -d --build
+```
+
+`Dockerfile` copies the assets (HTML, PDF, favicons) into the image by an
+explicit whitelist — when you add a new top-level asset, add it there too or it
+will 404 in production. `nginx.conf` applies the security headers, gzip and
+cache rules. The site is also plain static: `index.html`, the CV HTML/PDF and
+favicon set drop onto any static host (Netlify, Vercel, GitHub Pages, plain
+nginx) at the root.
 
 ## License
 
