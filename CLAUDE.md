@@ -66,7 +66,7 @@ The PDF must match the latest HTML before pushing or sending.
 
 ## Design system (non-negotiable)
 
-Palette — exact hex:
+Palette — exact hex (brand colors):
 - `#0d1b12` — dark forest (nav, dark sections, footer)
 - `#1b5e3b` — green primary (links, section titles on light bg)
 - `#2d7a4f` — green accent (borders, dots, separators)
@@ -74,10 +74,24 @@ Palette — exact hex:
 - `#dff0e7` — green tint (pill bg)
 - `#f5f3ec` — parchment (page bg)
 
+Functional neutrals (allowed, intentional — layering + text, NOT brand):
+- `#183325` (`--dark-mid`), `#0e3320` (`--g900`), `#eef7f1` (`--g050`) —
+  green-scale intermediates for dark layering and light block bg
+- `#111111` / `#1e1e1e` / `#636363` (`--ink-1/2/3`) — text hierarchy
+- `#d8d4c8` (`--rule`), `#e6e2d8` (`--tag`) — separators, generic tags
+- `#ffffff` text + `rgba(255,255,255,…)` alphas — text/hover on dark bg and
+  low-alpha (≤5%) overlays only; never as a background color
+Any color outside these lists is a violation.
+
 Typography:
 - `Fraunces` (serif) — display: hero name, section titles, role headings
 - `JetBrains Mono` (mono) — eyebrows, badges, tech pills, nav, contact rows
 - `DM Sans` (sans) — body text
+
+CV exception (`CV_Bastien_Chanot.html`, compact print style): section titles
+and company/school names are mono, roles/degrees are sans; Fraunces is
+reserved for the header name and the accroche. The mapping above applies to
+the landing.
 
 Forbidden:
 - Pure white background (`#ffffff`)
@@ -108,8 +122,9 @@ Forbidden:
 - Profile state, including job search context, must stay consistent across
   index.html and CV. Currently: looking for **CDI** in embedded / systems
   software first; freelance missions (ZenQuality) in parallel.
-- Geography: Yerres (91) currently; targeting Pays de la Loire mid-term;
-  full remote preferred or hybrid 1–2 days/month if Paris.
+- Geography: Yerres (91) currently; relocation to the Nantes area (Pays de
+  la Loire) planned mid-term; full remote preferred, hybrid possible in
+  Nantes, or hybrid 1–2 days/month if Paris.
 
 ---
 
@@ -124,6 +139,12 @@ None — global rules apply.
 - Edits to `index.html` or `CV_Bastien_Chanot.html` must preserve the
   palette + typography + structure unless explicitly asked to change them.
 - After editing `CV_Bastien_Chanot.html`, regenerate the PDF.
+- After editing index.html's inline `<script>`, recompute the CSP hash and
+  update `nginx-security-headers.conf` (script-src is hash-pinned — a stale
+  hash silently disables the JS in prod):
+  ```bash
+  python3 -c "import hashlib,base64,re;h=base64.b64encode(hashlib.sha256(re.search(r'<script>(.*?)</script>',open('index.html',encoding='utf-8').read(),re.S).group(1).encode()).digest()).decode();print('sha256-'+h)"
+  ```
 - Never add external dependencies beyond Google Fonts.
 - Never add tracking, analytics, cookie banners or third-party scripts.
 - Always test in mobile width (375px) and desktop (1440px) before claiming done.

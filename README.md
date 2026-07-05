@@ -15,9 +15,17 @@ Static single-page site (no framework, no build step). Lives at https://bchanot.
 | `.claude/`                    | Memory registries, tasks, audits |
 | `Dockerfile`                  | Container image build — copies static assets into nginx |
 | `docker-compose.yml`          | Service def — host port, hardening (read-only, cap_drop), tmpfs |
-| `nginx.conf`                  | In-container nginx — security headers, CSP, gzip, cache |
+| `nginx.conf`                  | In-container nginx — CSP, gzip, cache rules |
+| `nginx-security-headers.conf` | Shared security-headers snippet, re-included per location (nginx `add_header` inheritance is all-or-nothing) |
 | `.env.example`                | Sample env — `PORT` for the host bind |
+| `.githooks/`                  | Versioned git hooks — pre-commit blocks direct code commits on `main`/`develop` (gitflow) |
 | `favicon.*`, `apple-touch-icon.png` | Favicon set — SVG primary + ICO/PNG + 180×180 apple-touch |
+
+After cloning, wire the versioned hooks once:
+
+```bash
+git config core.hooksPath .githooks
+```
 
 ## Local preview
 
@@ -65,6 +73,9 @@ Strict palette (non-negotiable):
 | `#dff0e7` | Green tint — pill background |
 | `#f5f3ec` | Parchment — page background |
 
+Plus a documented set of functional neutrals (text inks, rules/tags, two
+green-scale intermediates) — the exhaustive list lives in `CLAUDE.md`.
+
 Typography:
 - `Fraunces` — display (names, titles)
 - `JetBrains Mono` — technical labels, badges, pills, nav, contact
@@ -75,10 +86,12 @@ WCAG AA contrast. Focus visible. Semantic HTML.
 
 ## Deploy
 
-Production runs as a Docker container (`bchanot-web`, `nginx:1.27-alpine`)
-behind the host's nginx reverse proxy, which terminates TLS and `proxy_pass`es
-to it. The host port is set via `PORT` (default 8080) and bound to `127.0.0.1`,
-so all traffic goes through the front proxy.
+Production currently serves the static files directly from the VPS's native
+nginx (which also terminates TLS). The repo additionally maintains a hardened
+container path (`bchanot-web`, `nginxinc/nginx-unprivileged:1.30-alpine`,
+digest-pinned, runs as uid 101 on port 8080) for when a containerized deploy
+is preferred: the host port is set via `PORT` (default 8080) and bound to
+`127.0.0.1`, so all traffic goes through the front proxy.
 
 ```bash
 cp .env.example .env   # optional: set PORT
