@@ -33,3 +33,11 @@ rules:
 - Favicon set added (commit `ef31fb3`): SVG primary + PIL-generated PNG/ICO/apple-touch. Brand pulse-dot translated to icon. BDR-005 + LRN-002 logged.
 - CV files (`CV_Bastien_Chanot.html`, `.pdf`) untouched — user's WIP M state, off-scope per brief.
 - User pushed + reported favicon 404 in prod. Root cause: Dockerfile selective `COPY` whitelist never included favicon files. Fix shipped (commit `f1e4392`): COPY line appended + nginx long-cache rule for image assets. BLK-001 logged. VPS rebuild required.
+
+## 2026-07-05
+
+- Grouped tours (security+clean+reconcile+doc): container hardened (SEC-1..7 → nginx-unprivileged:1.28 / port 8080 / uid 101, per-location security headers, `server_tokens off`, CSP script-src hash-pinned), palette + dead-code clean, README synced. Merged via chore/tour + chore/tour-residuals. Detail in `.claude/audits/TOUR.md`.
+- Re-run tour (chore/tour-2026-07-05-2) CONVERGED 2 it: fresh semgrep PASS, dead CSS removed (`30b0e44`, render-hash proven behavior-preserving → LRN-003), reconcile caught BDR-004 drift, doc no-drift.
+- Closed all 5 residuals on owner GO: CLN-6 aria-hidden CTA arrows (`607124a`), CLN-7/8 palette conformance (5 off-palette colors → tokens, PDF regen render-verified, `ede7576`), CLN-9 geo aligned landing→CV = Nantes relocation (`f515875`).
+- Decided: BDR-006 (hardened container, supersedes BDR-004 infra), BDR-007 (geo canonical = Nantes, supersedes BDR-003 geo).
+- Branch chore/tour-2026-07-05-2 finished → develop + pushed.

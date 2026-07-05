@@ -101,3 +101,69 @@ port — compose covered). Branch left UNMERGED — `gitflow finish` on GO.
 | CLN-4 | Norm aligned with reality: the 8 functional neutrals (inks, rule/tag, 2 green intermediates) are now DOCUMENTED as allowed in CLAUDE.md (+ README pointer). "Any color outside the two lists is a violation" keeps the norm enforceable. |
 | SEC-7 | script-src hardened: `unsafe-inline` replaced by the sha256 hash of the single inline script (index has zero style/script attributes). style-src keeps `unsafe-inline` (CV carries 2 style attributes + single-file convention) — documented. NEW INVARIANT in CLAUDE.md: recompute the hash after any inline-JS edit (stale hash = JS silently blocked in prod). |
 | INF-2 | CORRECTION: false positive in the 2026-07-05 report-only run — `.gitignore` exists (549B) and covers the expected classes. No action was ever needed. |
+
+## Tour 2026-07-05-2 — AUTO — branch chore/tour-2026-07-05-2 — 2 iterations — CONVERGED
+
+Re-run of /tour on develop (d7256ff) after the day's earlier tours merged. Goal:
+verify no regression + catch anything new. Branch suffixed `-2` to keep this
+header distinct from the earlier converged run. gstack OFF → optional It1 cso
+posture add-on not run; the security floor (security-auditor + pinned semgrep)
+ran BOTH iterations, not degraded. No package.json/Makefile → no automated
+tests/lint/build; project checks = domain invariants (CSP-hash, PDF↔HTML).
+
+| ID | Axis | File | Sev | Finding | Status |
+|----|------|------|-----|---------|--------|
+| SEC-1 | security | (full tree) | - | Fresh semgrep both iterations → VERDICT PASS, 0 blocking. Sole note: `style-src 'unsafe-inline'` (accepted single-file convention, It1==It2). No regression from the prior SEC fixes; script-src hash still matches inline script | pass |
+| CLN-1 | clean | index.html:347 | - | dead `.reveal.d6` rule (markup uses reveal d1–d5 only) | fixed 30b0e44 |
+| CLN-2 | clean | CV:408 | - | dead `position: running(siteFooter)` — no `element(siteFooter)` consumer; `.footer-bar` is `display:none` in @media print (@page auto-numbered footer replaces it); on screen running() is an invalid position value, ignored | fixed 30b0e44 |
+| CLN-3 | clean | CV:438 | - | no-op `box-shadow: none` on `.page` (`.page` sets a shadow nowhere; weasyprint ignores box-shadow entirely — confirmed by its own warning) | fixed 30b0e44 |
+| CLN-4 | clean | CV:315 | - | dead `.skills-grid { font-size: 8.4pt }` — every direct child is a `.skill-label`(9.5pt)/`.skill-values`(10pt) div; no bare text node, no em-dependency → never renders | fixed 30b0e44 |
+| CLN-5 | clean | CV:46-48,54,316 | - | stray blank lines (triple blank before `.page`, blanks inside `.page`/`.skills-grid`) | fixed 30b0e44 |
+| CLN-6 | a11y | index.html:1003,1007 | - | 2 decorative `.arrow` SVGs miss the `aria-hidden="true"` the sibling download arrow (1011) has. NOT auto-fixed: adding it changes the a11y tree → outside the clean phase's behavior-preserving scope (belongs to an a11y pass; cf. TODO "WCAG AA contrast") | open (suggested) |
+| CLN-7 | norm | index.html:931 | - | `.footer` bg `#061008` is off-palette (darker than `--dark #0d1b12`, `--g900 #0e3320`). Design system documents footer = `#0d1b12`. Fix changes rendering (slightly lighter footer) → owner decision, not auto-fixed | open (suggested) |
+| CLN-8 | norm | CV:252,135-136,434-435 | - | off-palette colors: `#a8d4bc` tag border (252), gradient stops `#edeadf`/`#f2efe6` (136/435), texture fill `rgba(26,71,48,0.05)` (135/434). All rendering-changing → owner decision, not auto-fixed | open (suggested) |
+| CLN-9 | content | index.html vs CV:507-508 | - | profile-state wording drift: landing "Pays de la Loire / remote or 1–2j Paris" vs CV "région nantaise / hybride Nantes / 1–2j Paris" (not contradictory — Nantes ∈ PdL — but CV adds "hybride Nantes"). CLAUDE.md requires cross-file consistency → owner picks canonical wording, not auto-fixed | open (suggested) |
+| REC-1 | reconcile | .claude/memory/decisions.md | - | **BDR-004 stale**: text says `nginx:1.27-alpine` / container port 80 / "HSTS omitted at container", but the real Dockerfile+compose (post 2026-07-05 SEC-1 fix) = `nginxinc/nginx-unprivileged:1.28-alpine` / port 8080 / uid 101. That tour never added a superseding decision (index stops at BDR-005). Append-only registry + tour-read-only → SUGGEST a superseding **BDR-006**. README deploy section is already correct | suggested |
+| REC-2 | reconcile | .claude/memory/decisions.md | - | BDR-002 "Warnings connus: `box-shadow:none` ignoré par weasyprint" — that declaration was removed this tour (CLN-3), so the documented warning no longer fires. Minor note to add when BDR-002 is next touched | suggested |
+| REC-3 | reconcile | TODO.md + registries | - | ZERO false-done. Oracles: 1369d27 exists ✓; `og:image` absent = TODO item genuinely open ✓; CV favicon-block not mirrored = open, matches BDR-005 note ✓; WCAG-contrast + real-mobile-QA open ✓; develop==origin/develop (d7256ff), branch +1 unmerged ✓; BLK-001 resolved, favicon assets present ✓ | consistent |
+| DOC-1 | doc | README.md | - | doc-syncer automatic mode → `PATCHED_FILES: (none)`. Deploy section already reflects unprivileged image/port 8080 (prior tour sync); file table matches root inventory; cleanup touched nothing user-facing | no-op |
+| INV-1 | invariant | index.html / CV pdf | - | CSP hash `sha256-Al1M34KxI6Ye5Viu6aO//7CYyaLzqtpG9GX95FFlSOY=` recomputed == pinned (inline `<script>` untouched) ✓; PDF regenerated byte-identical to the pre-edit baseline (text sha256 083055…96a8 + per-page PNG @150dpi render hash all match) → PDF=HTML invariant holds, PDF file unchanged | held |
+
+### Iterations
+1. **It1** — security-auditor fresh semgrep (94 rules / 25 files → VERDICT PASS,
+   1 accepted LOW) + read-only clean audit (13 findings: C1–C8, N1–N5). Applied
+   behavior-preserving fixes CLN-1..5 (commit 30b0e44); proven behavior-preserving
+   (PDF renders pixel-identical, CSP hash unchanged). Fresh `analyzer` re-verify:
+   RE-VERIFY PASS, braces balanced, zero new. Reconcile (report-only): BDR-004
+   drift + BDR-002 note + zero false-done. Doc: no drift.
+2. **It2 (convergence)** — fresh full-tree semgrep: VERDICT PASS, identical to It1,
+   0 new blocking. Clean stability: 4 removed selectors GONE, braces balanced
+   (index 204/204, CV 68/68), known-open findings (CLN-6..9) persist = NOT new,
+   zero new introduced. Zero fixes → CONVERGED.
+
+### Residuals (open — all require owner judgment, none auto-fixable behavior-preservingly)
+CLN-6 (arrows aria-hidden — a11y pass), CLN-7/8 (off-palette colors — design
+decision), CLN-9 (profile-state wording — copy canonicalization), REC-1
+(superseding BDR-006 for the hardened container), REC-2 (BDR-002 warning note).
+SEC accepted-LOW (`style-src 'unsafe-inline'`) unchanged from prior runs.
+
+Checks: semgrep PASS (both it.), CSP-hash MATCH, PDF↔HTML byte-identical render,
+CSS braces balanced. No automated tests/lint/build (static site).
+Commits: 2 (clean 30b0e44 + this report). BREAKING: 0. Branch left UNMERGED.
+Scratch reports (.tour-semgrep, .tour-clean, .tour-semgrep-it2) folded here then
+deleted (STEP 3.2).
+
+## Follow-up 2026-07-05-2 — all 5 residuals closed (chore/tour-2026-07-05-2, owner GO)
+
+| ID | Resolution |
+|----|-----------|
+| CLN-6 | `aria-hidden="true"` added to the 2 decorative CTA arrows (match sibling download arrow). Visual identical, a11y-tree only. Commit `607124a`. |
+| CLN-7 | `.footer` bg `#061008` → `var(--dark)` #0d1b12 (the design-system footer color). Commit `ede7576`. |
+| CLN-8 | CV off-palette → tokens: `.tag` border `#a8d4bc` → `var(--g300)` (nearest visible green); body+print texture `rgba(26,71,48,.05)` → `rgba(27,94,59,.05)` (--g700); gradient stops `#edeadf`/`#f2efe6` → `var(--tag)`/`var(--page)`. PDF regenerated, render verified (2 pages, layout intact, page-1 eyeballed). Commit `ede7576`. |
+| CLN-9 | Owner chose the CV wording as canonical (Option B): landing about-para + callout aligned to "installation région nantaise prévue" + "hybride Nantes"; `CLAUDE.md` geography note updated to match. CV unchanged. Commit `f515875` → BDR-007. |
+| REC-1 | BDR-004 drift resolved by superseding entry **BDR-006** (nginx-unprivileged:1.28 / port 8080 / uid 101). |
+| REC-2 | BDR-002 "box-shadow warning" note now historical (declaration removed in `30b0e44`) — left as-is (append-only registry), noted here. |
+
+Checks: CSP-hash MATCH, braces balanced (index 204/204, CV 68/68), PDF 2 pages.
+Commits: 3 fixes (`607124a`/`ede7576`/`f515875`) + capitalize (BDR-006/007, LRN-003,
+journal) + this follow-up. Branch finished → develop + pushed on owner GO.

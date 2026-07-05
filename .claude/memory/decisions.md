@@ -27,6 +27,8 @@ rules:
 | BDR-003 | 2026-05-15 | Position pro: CDI prioritaire, freelance parallèle | accepted |
 | BDR-004 | 2026-05-15 | Containerize site with nginx:alpine behind reverse proxy | accepted |
 | BDR-005 | 2026-05-17 | Favicon: SVG primary + PIL raster fallback | accepted |
+| BDR-006 | 2026-07-05 | Hardened container: nginx-unprivileged + port 8080 | accepted (supersedes BDR-004 infra detail) |
+| BDR-007 | 2026-07-05 | Profile geo canonical: Nantes relocation | accepted (supersedes BDR-003 geo) |
 
 ---
 
@@ -95,3 +97,25 @@ rules:
   - Online favicon generator — external dep, opaque rendering, no source control.
 - **CV HTML**: not modified (user's WIP M state). Browser auto-fetches `/favicon.ico` from root → CV tab still shows icon. Link block mirror logged in `.claude/tasks/TODO.md` for later.
 - **Reference**: `favicon.svg`, `favicon-32.png`, `favicon.ico`, `apple-touch-icon.png`, `index.html` head, commit `ef31fb3`.
+
+---
+
+## BDR-006 — Hardened container: nginx-unprivileged base + port 8080
+
+- **Date**: 2026-07-05
+- **Status**: accepted — supersedes the base-image/port detail of BDR-004
+- **Decision**: Container base = `nginxinc/nginx-unprivileged:1.28-alpine` (digest-pinned), runs as uid 101, listens on **8080** (not 80). Compose maps `127.0.0.1:${PORT}:8080`; `USER root` scoped to the one build-time `rm` only; `cap_add` dropped; `server_tokens off`; `set_real_ip_from 127.0.0.1`; `nginx-security-headers.conf` re-included per `location`; CSP `script-src` hash-pinned.
+- **Why**: SEC-1 tour finding — stock `nginx:*-alpine` runs its master as root inside the container. Unprivileged image + port 8080 removes the root master; the rest shrinks blast radius. BDR-004's "port 80 / nginx:1.27-alpine / HSTS omitted at container" no longer matched the tree.
+- **Supersedes**: BDR-004 — topology unchanged (native front proxy → container on loopback); only the base image, internal port, and uid change.
+- **Reference**: `Dockerfile`, `docker-compose.yml`, `nginx.conf`, `nginx-security-headers.conf`. Fix commit `ba13d69`; drift caught by tour REC-1 (`.claude/audits/TOUR.md`, run 2026-07-05-2).
+
+---
+
+## BDR-007 — Profile geo canonical: Nantes relocation
+
+- **Date**: 2026-07-05
+- **Status**: accepted — supersedes the geography detail of BDR-003
+- **Decision**: Canonical profile geo = "Yerres (91) now; installation région nantaise prévue à moyen terme; full remote, hybride possible sur Nantes, ou 1–2 j/mois Paris." CV was the source of truth; `index.html` + `CLAUDE.md` aligned to it.
+- **Why**: tour CLN-9 found the landing ("mobilité Pays de la Loire") drifting from the CV ("installation région nantaise" + "hybride Nantes"). Owner chose the CV wording as truth — more current/specific, and Nantes ∈ Pays de la Loire so not contradictory. Cross-file profile-state consistency is a CLAUDE.md content rule.
+- **Alternatives rejected**: align CV down to the landing (would delete real, more-specific relocation info).
+- **Reference**: `index.html` (about para + about-callout), `CV_Bastien_Chanot.html`, `CLAUDE.md` geography note. Commit `f515875`.
