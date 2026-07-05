@@ -49,3 +49,46 @@ larger refactor worth its own pass; CLN-4 is the owner's judgment call.
 Commits: 1 (this report — `.claude/**`, hook-exempt; no code touched).
 Scratch reports (.tour-semgrep/.tour-cso/.tour-clean/.tour-doc) folded here
 then deleted (STEP 3.2).
+
+## Tour 2026-07-05 — AUTO — branch chore/tour-2026-07-05 — 2 iterations — CONVERGED
+
+Fix pass over the 2026-07-05 report-only findings (user GO + 3 scope answers:
+fix Docker path / strict palette conformity / prod vhost provided).
+
+| ID | Axis | File | Sev | Finding | Status |
+|----|------|------|-----|---------|--------|
+| SEC-1 | security | Dockerfile | high | root master in container | fixed ba13d69 — `nginxinc/nginx-unprivileged:1.28-alpine` digest-pinned, uid 101 (verified `id` in container), `USER root` scoped to the one `rm`, cap_add dropped — **BREAKING**: container port 80 → 8080 (compose mapping/healthcheck updated same commit; VPS `.env PORT=2937` unaffected: mapping is `127.0.0.1:${PORT}:8080`) |
+| SEC-2 | security | nginx.conf | med | add_header inheritance dropped all security headers | fixed ba13d69 — shared `nginx-security-headers.conf` snippet re-included in every location; live-style oracle in hardened container: 5/5 headers on `/`, `.html`, `.pdf`, favicon |
+| SEC-3 | security | VPS vhost | med | HSTS missing end-to-end | fixed IN PROD by owner (front vhost patch) — live-verified `strict-transport-security: max-age=31536000` on bchanot.fr + www |
+| SEC-4 | security | Dockerfile | med | EOL base image, tag-only pin | fixed ba13d69 (1.28-alpine stable + digest) |
+| SEC-5 | security | nginx.conf | low | trust-all set_real_ip_from | fixed ba13d69 (→ 127.0.0.1, matches compose bind) |
+| SEC-6 | security | nginx.conf + VPS vhost | low | server version leak | fixed ba13d69 (`server_tokens off` in-repo) + IN PROD by owner (front) — live-verified `server: nginx` |
+| SEC-7 | security | snippet:12 | low/info | CSP `unsafe-inline` | open/accepted — documented convention, static no-input site (it2 semgrep sole non-blocking note) |
+| CLN-1 | clean | index.html + CV | - | 5× `background:#fff` | fixed 7e7bd66 → `var(--page)` (user chose strict conformity; visual change: cards blend with parchment, borders kept) |
+| CLN-2 | clean | CV html | - | dead `.screen-label` | fixed 7e7bd66 |
+| CLN-5 | clean | index.html | - | transitions alive under reduced-motion | fixed 7e7bd66 (universal kill rule) |
+| CLN-3 | clean | index.html | - | ~421-line card CSS duplication | open — refactor worth its own pass |
+| CLN-4 | clean | index.html | - | 8 neutrals beyond strict palette | open — owner judgment call |
+| REC-1 | reconcile | TODO/BDR-004 | - | prod topology CONFIRMED = BDR-004 as declared (native front proxy → container on 2937); earlier "native, no docker" premise was the misunderstanding — container IS the content server | consistent |
+| DOC-1 | doc | README.md | - | .githooks row + hooksPath note; deploy section synced (unprivileged image, snippet, front/container split) | fixed 840632a |
+| INV-1 | invariant | CV pdf | - | PDF regenerated with the HTML (weasyprint, same commit 7e7bd66) | held |
+
+### Iterations
+1. **It1** — fixes from the same-day report-only audit (tree unchanged since):
+   security ba13d69 (docker build + in-container `nginx -t` + hardened run +
+   4-location header oracle ALL PASS), clean 7e7bd66 (+PDF regen), doc
+   840632a (via doc-commit.sh). Prod side: owner applied front vhost patch
+   (HSTS + server_tokens), live-verified from here.
+2. **It2 (convergence)** — fresh semgrep full scan: VERDICT PASS, 0 blocking
+   (prior Dockerfile BLOCK resolved), 1 LOW reported (SEC-7 accepted); fresh
+   clean re-audit: CONVERGED-CLEAN yes, prior findings resolved, zero new
+   (CSS braces balanced, README↔infra aligned). Zero fixes → CONVERGED.
+
+### Residuals (open)
+SEC-7 (accepted CSP convention), CLN-3 (dedup refactor), CLN-4 (palette
+judgment). Prod content headers (CSP/XCTO/XFO…) appear once the fixed
+container is redeployed: merge → VPS `git pull && docker compose up -d
+--build` → verify `curl -sI https://bchanot.fr/ | grep -i x-content`.
+
+Commits: 4 (fix/clean/docs + this report). BREAKING: 1 (SEC-1, container
+port — compose covered). Branch left UNMERGED — `gitflow finish` on GO.
