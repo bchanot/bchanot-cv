@@ -152,3 +152,18 @@ CSS braces balanced. No automated tests/lint/build (static site).
 Commits: 2 (clean 30b0e44 + this report). BREAKING: 0. Branch left UNMERGED.
 Scratch reports (.tour-semgrep, .tour-clean, .tour-semgrep-it2) folded here then
 deleted (STEP 3.2).
+
+## Follow-up 2026-07-05-2 — all 5 residuals closed (chore/tour-2026-07-05-2, owner GO)
+
+| ID | Resolution |
+|----|-----------|
+| CLN-6 | `aria-hidden="true"` added to the 2 decorative CTA arrows (match sibling download arrow). Visual identical, a11y-tree only. Commit `607124a`. |
+| CLN-7 | `.footer` bg `#061008` → `var(--dark)` #0d1b12 (the design-system footer color). Commit `ede7576`. |
+| CLN-8 | CV off-palette → tokens: `.tag` border `#a8d4bc` → `var(--g300)` (nearest visible green); body+print texture `rgba(26,71,48,.05)` → `rgba(27,94,59,.05)` (--g700); gradient stops `#edeadf`/`#f2efe6` → `var(--tag)`/`var(--page)`. PDF regenerated, render verified (2 pages, layout intact, page-1 eyeballed). Commit `ede7576`. |
+| CLN-9 | Owner chose the CV wording as canonical (Option B): landing about-para + callout aligned to "installation région nantaise prévue" + "hybride Nantes"; `CLAUDE.md` geography note updated to match. CV unchanged. Commit `f515875` → BDR-007. |
+| REC-1 | BDR-004 drift resolved by superseding entry **BDR-006** (nginx-unprivileged:1.28 / port 8080 / uid 101). |
+| REC-2 | BDR-002 "box-shadow warning" note now historical (declaration removed in `30b0e44`) — left as-is (append-only registry), noted here. |
+
+Checks: CSP-hash MATCH, braces balanced (index 204/204, CV 68/68), PDF 2 pages.
+Commits: 3 fixes (`607124a`/`ede7576`/`f515875`) + capitalize (BDR-006/007, LRN-003,
+journal) + this follow-up. Branch finished → develop + pushed on owner GO.
