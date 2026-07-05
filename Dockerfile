@@ -2,7 +2,7 @@
 # nginx-unprivileged serves index.html + CV (HTML + PDF) as uid 101 —
 # no root master process in the container (tag + digest pinned).
 
-FROM nginxinc/nginx-unprivileged:1.28-alpine@sha256:209331cfcaec00da781f5b8a38e0d1c0abd00cb2b51e6ad385a30abbbdb04e15
+FROM nginxinc/nginx-unprivileged:1.30-alpine@sha256:fd3314e343bad2de4e1127ef58be122abbfa7e09572fa46ae62fcddb6b3f21c5
 
 # Custom nginx config (gzip, cache, security headers).
 COPY nginx.conf /etc/nginx/conf.d/default.conf
