@@ -238,3 +238,24 @@ No automated tests/lint/build (static site). Commits: 4 (fix/clean/docs + this
 report). BREAKING: 0. Branch left UNMERGED — `gitflow finish` on owner GO.
 Scratch reports (.tour-semgrep ×3, .tour-cso, .tour-clean ×3) folded here then
 deleted (STEP 3.2).
+
+## Follow-up 2026-07-06 — all 10 residuals closed (chore/tour-2026-07-05-3, owner GO)
+
+| ID | Resolution |
+|----|-----------|
+| N1 | Google Fonts trimmed: index drops Fraunces 0,300/0,500/0,700 + DM Sans 300 (keeps 0,600 + 1,400 / 400;500;600); CV drops Fraunces 0,300/0,600 + DM Sans 300 (keeps 0,700 + 1,300 / 400;500). CV PROVEN render-identical (per-page hash == baseline). index: font-matching analysis (zero strong/em inside serif elements beyond handled cases: hero-name em → 1,400; about/tsrit strong = sans with explicit weights) + headless-browser check 375px & 1440px — real Fraunces italic renders, zero console errors. |
+| N2 | CV date chips → French + en-dash: `avr. 2026 – présent`, `mars 2019 – mars 2025`, `fév. 2017 – nov. 2017` (mirrors landing wording; edu chips already en-dash). |
+| J3 | `.lang-item`/`.interest-tag` radius 10px → 999px (true pill treatment, matches landing `--r-pill`). |
+| N3 | `.contact-grid` no-op grid declarations dropped (single child + universal reset ⇒ no margin-collapse delta); `position`/`z-index` kept. Browser-verified both widths. |
+| J4 | dotfile `location ~ /\.` moved ABOVE the caching regex locations (first regex match wins). Oracle: `/.hidden` + `/.foo.html` → 404, pages 200, headers 5/5. |
+| N4 | `application/pdf` dropped from `gzip_types`. Oracle: PDF response carries no Content-Encoding under `Accept-Encoding: gzip`; HTML still gzipped. |
+| J5 | compose `healthcheck:` block removed — image HEALTHCHECK is the single definition, inherited by compose. Oracle: compose-less hardened run → `docker inspect` Health = `healthy`. |
+| J1 | White family documented in CLAUDE.md allowed lists (text/hover on dark + ≤5% overlays; never a background). |
+| J2 | CV typography exception documented in CLAUDE.md (mono section titles/company names, sans roles; Fraunces = header name + accroche; main mapping = landing). |
+| REC-2 | BDR-006 annotated: 1.30-alpine bump (CVE-2026-42945), decision itself unchanged. |
+
+CV PDF regenerated (weasyprint, 2 pages, both eyeballed: chips one line, layout
+intact). Checks: docker build + nginx -t PASS, header/dotfile/gzip/healthcheck
+oracles PASS, CSP hash MATCH (inline script untouched), index verified headless
+at 375px + 1440px. Capitalize: LRN-004, EVAL-001, BDR-006 note, journal
+2026-07-06. Branch → develop on owner GO (this session).
