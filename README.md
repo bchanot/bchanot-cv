@@ -88,7 +88,7 @@ WCAG AA contrast. Focus visible. Semantic HTML.
 
 Production currently serves the static files directly from the VPS's native
 nginx (which also terminates TLS). The repo additionally maintains a hardened
-container path (`bchanot-web`, `nginxinc/nginx-unprivileged:1.28-alpine`,
+container path (`bchanot-web`, `nginxinc/nginx-unprivileged:1.30-alpine`,
 digest-pinned, runs as uid 101 on port 8080) for when a containerized deploy
 is preferred: the host port is set via `PORT` (default 8080) and bound to
 `127.0.0.1`, so all traffic goes through the front proxy.
