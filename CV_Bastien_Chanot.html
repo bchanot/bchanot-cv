@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Bastien Chanot — CV</title>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Fraunces:ital,wght@0,300;0,600;0,700;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Fraunces:ital,wght@0,700;1,300&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
     /* Zones sombres (header, footer) */
@@ -40,8 +40,6 @@
     background: var(--page);
     font-family: var(--sans);
     -webkit-font-smoothing: antialiased;
-    margin: 0;
-    padding: 0;
   }
 
   .page {
@@ -174,15 +172,46 @@
     background: var(--rule);
   }
 
-  /* ── XP ── */
-  .xp-block { margin-bottom: 6px; }
-
-  .xp-header {
+  /* ── SHARED (xp/project/edu headers, date chips, roles, tags, links) ── */
+  .xp-header, .project-header, .edu-header {
     display: flex;
     justify-content: space-between;
     align-items: baseline;
-    margin-bottom: 1px;
   }
+  .xp-header, .project-header { margin-bottom: 1px; }
+
+  .xp-dates, .project-dates, .edu-dates {
+    font-family: var(--mono);
+    color: var(--ink-3);
+    background: var(--tag);
+    padding: 1px 6px;
+    border-radius: 2px;
+  }
+
+  .xp-role, .edu-degree {
+    font-size: 10pt;
+    font-weight: 500;
+    color: var(--g700);
+    margin-bottom: 3px;
+  }
+
+  .lang-item, .interest-tag {
+    font-family: var(--mono);
+    font-size: 8.5pt;
+    color: var(--g900);
+    background: var(--g100);
+    padding: 2px 8px;
+    border-radius: 999px;
+  }
+
+  .inline-link {
+    color: var(--g500);
+    text-decoration: none;
+    border-bottom: 1px solid var(--g300);
+  }
+
+  /* ── XP ── */
+  .xp-block { margin-bottom: 6px; }
 
   .xp-company {
     font-family: var(--mono);
@@ -191,22 +220,7 @@
     color: var(--ink-1);
   }
 
-  .xp-dates {
-    font-family: var(--mono);
-    font-size: 8.5pt;
-    color: var(--ink-3);
-    white-space: nowrap;
-    background: var(--tag);
-    padding: 1px 6px;
-    border-radius: 2px;
-  }
-
-  .xp-role {
-    font-size: 10pt;
-    font-weight: 500;
-    color: var(--g700);
-    margin-bottom: 3px;
-  }
+  .xp-dates { font-size: 8.5pt; white-space: nowrap; }
 
   .xp-loc {
     font-size: 7.5pt;
@@ -259,13 +273,6 @@
   /* ── PROJECTS ── */
   .project-block { margin-bottom: 5px; }
 
-  .project-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    margin-bottom: 1px;
-  }
-
   .project-name {
     font-family: var(--mono);
     font-size: 10.5pt;
@@ -280,15 +287,7 @@
     font-style: italic;
   }
 
-  .project-dates {
-    font-family: var(--mono);
-    font-size: 8pt;
-    color: var(--ink-3);
-    white-space: nowrap;
-    background: var(--tag);
-    padding: 1px 6px;
-    border-radius: 2px;
-  }
+  .project-dates { font-size: 8pt; white-space: nowrap; }
 
   .project-desc {
     font-size: 10pt;
@@ -328,12 +327,6 @@
   /* ── EDU ── */
   .edu-block { margin-bottom: 5px; }
 
-  .edu-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-  }
-
   .edu-school {
     font-family: var(--mono);
     font-size: 11.5pt;
@@ -341,21 +334,7 @@
     color: var(--ink-1);
   }
 
-  .edu-dates {
-    font-family: var(--mono);
-    font-size: 7.2pt;
-    color: var(--ink-3);
-    background: var(--tag);
-    padding: 1px 6px;
-    border-radius: 2px;
-  }
-
-  .edu-degree {
-    font-size: 10pt;
-    font-weight: 500;
-    color: var(--g700);
-    margin-bottom: 3px;
-  }
+  .edu-dates { font-size: 7.2pt; }
 
   .edu-detail {
     font-size: 10pt;
@@ -373,30 +352,12 @@
 
   .lang-row { display: flex; gap: 4px; flex-wrap: wrap; }
 
-  .lang-item {
-    font-family: var(--mono);
-    font-size: 8.5pt;
-    color: var(--g900);
-    background: var(--g100);
-    padding: 2px 8px;
-    border-radius: 10px;
-  }
-
   .lang-item .level {
     color: var(--ink-3);
     font-size: 7.5pt;
   }
 
   .interests { display: flex; flex-wrap: wrap; gap: 4px; }
-
-  .interest-tag {
-    font-family: var(--mono);
-    font-size: 8.5pt;
-    color: var(--g900);
-    background: var(--g100);
-    padding: 2px 8px;
-    border-radius: 10px;
-  }
 
   /* ── FOOTER ── */
   .footer-bar {
@@ -427,7 +388,6 @@
       background:
         url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='6' height='6'%3E%3Ccircle cx='1' cy='1' r='0.6' fill='rgba(27,94,59,0.05)'/%3E%3C/svg%3E"),
         linear-gradient(160deg, var(--page) 0%, var(--tag) 55%, var(--page) 100%);
-      padding: 0;
     }
     .page { background: transparent; }
     .cv-header { padding: 18px 14mm 14px; }
@@ -488,7 +448,6 @@
 </head>
 <body>
 
-
 <div class="page">
 
   <div class="cv-header">
@@ -523,9 +482,9 @@
       <div class="xp-block">
         <div class="xp-header">
           <span class="xp-company">ZenQuality</span>
-          <span class="xp-dates">Apr 2026 - present</span>
+          <span class="xp-dates">avr. 2026 – présent</span>
         </div>
-        <div class="xp-role">Développeur indépendant <span class="xp-loc">· Yerres · <a href="https://zenquality.fr" style="color:var(--g500);text-decoration:none;border-bottom:1px solid var(--g300);">zenquality.fr</a></span></div>
+        <div class="xp-role">Développeur indépendant <span class="xp-loc">· Yerres · <a href="https://zenquality.fr" class="inline-link">zenquality.fr</a></span></div>
         <ul class="bullets">
           <li>Mission SEO et conformité légale RGPD pour PME service (Île-de-France) — audit technique Core Web Vitals + Schema.org + NAP, refonte CGV B2B/B2C, RGPD, mentions légales, mise en conformité médiateur CM2C. Plan d'action 12 sprints.</li>
           <li>Site vitrine WordPress (<span class="tag">Gutenverse</span>) pour PME esthétique — conception, intégration, déploiement et support continu (hébergement client).</li>
@@ -536,7 +495,7 @@
       <div class="xp-block">
         <div class="xp-header">
           <span class="xp-company">CareGame</span>
-          <span class="xp-dates">Mar 2019 - Mar 2025</span>
+          <span class="xp-dates">mars 2019 – mars 2025</span>
         </div>
         <div class="xp-role">Développeur logiciel — Systèmes &amp; Backend <span class="xp-loc">· Paris · Full remote dès 2020</span></div>
         <ul class="bullets">
@@ -555,7 +514,7 @@
       <div class="xp-block break-before-page">
         <div class="xp-header">
           <span class="xp-company">Deewee</span>
-          <span class="xp-dates">Feb 2017 - Nov 2017</span>
+          <span class="xp-dates">fév. 2017 – nov. 2017</span>
         </div>
         <div class="xp-role">Développeur C — Système embarqué <span class="xp-loc">· Ivry-sur-Seine</span></div>
         <div class="xp-contract">Stage 42 (6 mois) puis CDD (4 mois)</div>
@@ -582,7 +541,7 @@
         <div class="project-desc">
           Configuration Claude Code, dotfiles, projets bas-niveau (42, expérimentations C/Rust) — accessibles publiquement. Mirror automatique vers GitHub via push hook.
         </div>
-        <div class="project-link"><a href="https://git.bchanot.fr/bchanot" style="color:var(--g500);text-decoration:none;border-bottom:1px solid var(--g300);">git.bchanot.fr/bchanot</a></div>
+        <div class="project-link"><a href="https://git.bchanot.fr/bchanot" class="inline-link">git.bchanot.fr/bchanot</a></div>
       </div>
 
       <div class="project-block">

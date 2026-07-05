@@ -167,3 +167,95 @@ deleted (STEP 3.2).
 Checks: CSP-hash MATCH, braces balanced (index 204/204, CV 68/68), PDF 2 pages.
 Commits: 3 fixes (`607124a`/`ede7576`/`f515875`) + capitalize (BDR-006/007, LRN-003,
 journal) + this follow-up. Branch finished → develop + pushed on owner GO.
+
+## Tour 2026-07-05-3 — AUTO — branch chore/tour-2026-07-05-3 — 3 iterations — CONVERGED
+
+Third run of the day, on develop 7967aff (all prior tour residuals merged).
+gstack ON → cso posture add-on ran it1 (it was OFF for run -2) — and caught the
+run's only HIGH. Session-limit pause mid-it3 (2026-07-05→06); both it3 agents
+resumed from transcript, tree unchanged, no audit gap.
+
+| ID | Axis | File | Sev | Finding | Status |
+|----|------|------|-----|---------|--------|
+| SEC-1 | security | Dockerfile:5 | high | base `nginx-unprivileged:1.28-alpine` (correct this morning) now on a RETIRED stable branch — 2026-05-13 nginx batch (CVE-2026-42945, rewrite-module buffer overflow, RCE/DoS-class) fixed only in 1.30.1+/1.31.1+, never backported to 1.28.x; digest pin froze the vulnerable build | fixed 1aa97f0 — `1.30-alpine@fd3314e3…` (nginx/1.30.3). Verified: build, `nginx -t`, uid 101, hardened run 5/5 headers + HTTP 200 on /, .html, .pdf, favicon. Not BREAKING (same port/contract); prod needs rebuild+redeploy after merge |
+| SEC-2 | security | (full tree) | - | semgrep floor: fresh scan ALL 3 iterations → VERDICT PASS, 0 findings (94 rules; 23→28 files as scratch reports accrued). cso it1: all same-day fixes hold; secrets sweep tree + 36-commit history clean | pass |
+| CLN-1 | clean | CV:490 | - | leftover double blank after `<body>` (run -2's CLN-5 went triple→double) | fixed 613bfc0 |
+| CLN-2 | clean | nginx.conf:67 | - | dead `deny all;` — `return 404` fires at rewrite phase, access phase never reached | fixed 613bfc0 — dotfile-404 oracle PASS |
+| CLN-3 | clean | .dockerignore:14 | - | phantom `nginx.conf.bak` (never existed in tree or history) | fixed 613bfc0 |
+| CLN-4 | clean | CV | - | duplicated rules: `.xp/.project/.edu-header`, 3 date chips (5/7 shared), `.xp-role`≡`.edu-degree`, `.lang-item`≡`.interest-tag` → shared block + per-class overrides | fixed 613bfc0 — PDF text-hash + per-page render-hash + full byte-identity vs committed PDF (LRN-003) |
+| CLN-5 | clean | CV:528,585 | - | 2 byte-identical inline `style=` attrs → `.inline-link` class; snippet comment ("style attributes in the CV") synced | fixed 613bfc0 — CV now zero style attrs |
+| CLN-6 | clean | index:505/761 | - | `.stack-note code`≡`.theme-list code` minus padding → grouped | fixed 613bfc0 |
+| CLN-7 | clean | CV:43-44,430 | - | no-op body `margin/padding` (universal reset covers) | fixed 613bfc0 |
+| CLN-8 | clean | index:700-701 | - | 2 no-op `.formation .timeline*` overrides restating base values (also removed a latent same-specificity override of the `.current` ring) | fixed 613bfc0 |
+| J1 | norm | index+CV (12 sites) | - | `#fff`/rgba-white family (text-on-dark + 4% overlay) outside BOTH documented palette lists — de-facto accepted, undocumented | open — document as 3rd allowed family in CLAUDE.md, or map to tokens (visible change) |
+| J2 | norm | CV headings | - | CV section titles/roles mono/sans vs CLAUDE.md "Fraunces = section titles, role headings" — deliberate compact-CV style, unflagged by all prior passes | open — document CV exception (recommended) or restyle |
+| J3 | norm | CV:204 | - | `border-radius: 10px` on lang/interest tags — >6px unless counted as pills | open — owner call |
+| J4 | config | nginx.conf | - | regex-location order lets hypothetical `/.foo.html` hit the caching block before the dotfile block (both still 404 — file absent; defense-in-depth only) | open — optional reorder |
+| J5 | config | Dockerfile+compose | - | healthcheck duplicated (compose fully overrides image HEALTHCHECK, identical params — one always inert) | open — owner call (image stays self-checking without compose) |
+| N1 | clean | both font URLs | info | unused Google Fonts faces (index: Fraunces 0,300/0,500/0,700 + DM Sans 300; CV: Fraunces 0,300/0,600 + DM Sans 300) | open — CV half provable via render-hash; index half needs a visual oracle (browser) → owner GO |
+| N2 | content | CV:485/498/517 | - | date chips in English (`Apr 2026 - present`…) vs French-copy rule + hyphen/en-dash inconsistency | open — content change, owner call |
+| N3 | clean | index:863-869 | info | `.contact-grid` grid declarations no-op around single child — removing `display:grid` can alter margin-collapsing, no render oracle | open |
+| N4 | config | nginx.conf:39 | info | `application/pdf` in gzip_types — compressing already-flate-compressed format; removal changes observable response header | open — owner call |
+| REC-1 | reconcile | TODO + registries | - | ZERO pre-existing drift. Oracles: CSP hash pinned==computed ✓, PDF↔HTML same commit ede7576 + byte-identical render ✓, BDR-006 (unprivileged/8080) + BDR-007 (Nantes wording ×2 index, ×1 CV) match tree ✓, BLK-001 COPY line holds ✓, og:image + CV-favicon TODO items genuinely open ✓, develop==origin ✓ | consistent |
+| REC-2 | reconcile | decisions.md BDR-006 | - | SEC-1 bump makes BDR-006's "1.28-alpine" version detail stale (decision itself — unprivileged base + 8080 — unchanged). Registry read-only for tour | suggested — annotate via /reconcile or /capitalize |
+| DOC-1 | doc | README.md:91 | - | stale `1.28-alpine` ref after SEC-1 | fixed 2f5e51a (doc-syncer automatic, single-line) |
+| INV-1 | invariant | CSP + PDF | - | CSP hash MATCH all iterations (script byte-untouched); post-clean PDF byte-identical to committed (text sha256 083055…96a8 + both page render-hashes) → PDF file unchanged, nothing to regen | held |
+
+### Iterations
+1. **It1** — parallel: security-auditor (semgrep PASS 0 findings) + cso posture
+   (gstack ON, it1-only: 0c/1h/0m/0l/6i — the HIGH = SEC-1, sourced
+   endoflife.date + nginx advisories) + clean audit (8 fixable / 5 judgment).
+   Fixes: 1aa97f0 (security, oracle-verified) + 613bfc0 (clean F1–F8, 5 files,
+   net −54 lines, render-hash proof). Re-verify (fresh analyzer): PASS — cascade
+   safety, zero dead selectors, commits scoped. Reconcile: zero drift + REC-2.
+   Doc-syncer automatic: README 1.28→1.30 (2f5e51a via scoped fallback commit).
+2. **It2** — fresh semgrep PASS; clean stability: it1 fixes hold (braces
+   203/203, 67/67), but 4 NEW info/judgment findings (N1–N4). Fix policy: none
+   provably behavior-preserving with available oracles (N1-index/N3 need a
+   browser render; N2/N4 owner calls) → 0 applied, all catalogued open. New
+   findings appeared → iteration 3 required.
+3. **It3 (convergence, at bound)** — fresh semgrep PASS (0 findings); fresh
+   clean sweep against the full catalogue: stability PASS, borderline items
+   considered and rejected below threshold, ZERO new. Zero fixes + zero new →
+   CONVERGED.
+
+### Residuals (open — all owner-judgment, none auto-fixable with available oracles)
+J1 (document white family — recommended), J2 (document CV typography
+exception — recommended), J3 (10px radius), J4 (dotfile regex order), J5
+(healthcheck dup), N1 (font trim — CV provable, index needs eyeball), N2
+(English date chips), N3 (.contact-grid), N4 (gzip pdf), REC-2 (BDR-006
+version note). Standing accepted/TODO: SEC-7 CSP style-src, og:image, CV
+favicon block, WCAG contrast, real-mobile QA.
+
+### Prod follow-up
+SEC-1 lands in prod only after merge: VPS `git pull && docker compose up -d
+--build` → verify `curl -sI https://bchanot.fr/ | grep -i server` + container
+`nginx -v` = 1.30.3.
+
+Checks: semgrep PASS ×3, docker build + nginx -t + hardened-run 4-location
+header oracle PASS, CSP-hash MATCH, PDF byte-identical, braces 203/203 + 67/67.
+No automated tests/lint/build (static site). Commits: 4 (fix/clean/docs + this
+report). BREAKING: 0. Branch left UNMERGED — `gitflow finish` on owner GO.
+Scratch reports (.tour-semgrep ×3, .tour-cso, .tour-clean ×3) folded here then
+deleted (STEP 3.2).
+
+## Follow-up 2026-07-06 — all 10 residuals closed (chore/tour-2026-07-05-3, owner GO)
+
+| ID | Resolution |
+|----|-----------|
+| N1 | Google Fonts trimmed: index drops Fraunces 0,300/0,500/0,700 + DM Sans 300 (keeps 0,600 + 1,400 / 400;500;600); CV drops Fraunces 0,300/0,600 + DM Sans 300 (keeps 0,700 + 1,300 / 400;500). CV PROVEN render-identical (per-page hash == baseline). index: font-matching analysis (zero strong/em inside serif elements beyond handled cases: hero-name em → 1,400; about/tsrit strong = sans with explicit weights) + headless-browser check 375px & 1440px — real Fraunces italic renders, zero console errors. |
+| N2 | CV date chips → French + en-dash: `avr. 2026 – présent`, `mars 2019 – mars 2025`, `fév. 2017 – nov. 2017` (mirrors landing wording; edu chips already en-dash). |
+| J3 | `.lang-item`/`.interest-tag` radius 10px → 999px (true pill treatment, matches landing `--r-pill`). |
+| N3 | `.contact-grid` no-op grid declarations dropped (single child + universal reset ⇒ no margin-collapse delta); `position`/`z-index` kept. Browser-verified both widths. |
+| J4 | dotfile `location ~ /\.` moved ABOVE the caching regex locations (first regex match wins). Oracle: `/.hidden` + `/.foo.html` → 404, pages 200, headers 5/5. |
+| N4 | `application/pdf` dropped from `gzip_types`. Oracle: PDF response carries no Content-Encoding under `Accept-Encoding: gzip`; HTML still gzipped. |
+| J5 | compose `healthcheck:` block removed — image HEALTHCHECK is the single definition, inherited by compose. Oracle: compose-less hardened run → `docker inspect` Health = `healthy`. |
+| J1 | White family documented in CLAUDE.md allowed lists (text/hover on dark + ≤5% overlays; never a background). |
+| J2 | CV typography exception documented in CLAUDE.md (mono section titles/company names, sans roles; Fraunces = header name + accroche; main mapping = landing). |
+| REC-2 | BDR-006 annotated: 1.30-alpine bump (CVE-2026-42945), decision itself unchanged. |
+
+CV PDF regenerated (weasyprint, 2 pages, both eyeballed: chips one line, layout
+intact). Checks: docker build + nginx -t PASS, header/dotfile/gzip/healthcheck
+oracles PASS, CSP hash MATCH (inline script untouched), index verified headless
+at 375px + 1440px. Capitalize: LRN-004, EVAL-001, BDR-006 note, journal
+2026-07-06. Branch → develop on owner GO (this session).

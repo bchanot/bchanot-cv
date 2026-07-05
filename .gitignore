@@ -32,3 +32,4 @@ graphify-out/
 .claude/gstack/
 .claude/deploy/PENDING.json
 .claude/deploy/NEXT.sh
+.gstack/

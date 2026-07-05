@@ -108,6 +108,7 @@ rules:
 - **Why**: SEC-1 tour finding — stock `nginx:*-alpine` runs its master as root inside the container. Unprivileged image + port 8080 removes the root master; the rest shrinks blast radius. BDR-004's "port 80 / nginx:1.27-alpine / HSTS omitted at container" no longer matched the tree.
 - **Supersedes**: BDR-004 — topology unchanged (native front proxy → container on loopback); only the base image, internal port, and uid change.
 - **Reference**: `Dockerfile`, `docker-compose.yml`, `nginx.conf`, `nginx-security-headers.conf`. Fix commit `ba13d69`; drift caught by tour REC-1 (`.claude/audits/TOUR.md`, run 2026-07-05-2).
+- **Update 2026-07-06**: base bumped `1.28-alpine` → `1.30-alpine` digest-pinned (nginx/1.30.3) — 1.28 branch retired, CVE-2026-42945 fixed 1.30.1+ only, no backport. Decision unchanged (unprivileged base, 8080, uid 101). Commit `1aa97f0`, tour 2026-07-05-3 REC-2.
 
 ---
 
