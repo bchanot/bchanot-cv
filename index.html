@@ -502,16 +502,16 @@
     gap: 8px;
     flex-wrap: wrap;
   }
-  .stack-note code {
+  .stack-note code, .theme-list code {
     font-family: var(--mono);
     font-size: 12px;
     font-weight: 500;
     color: var(--g700);
     background: var(--g050);
     border: 1px solid var(--g100);
-    padding: 2px 8px;
     border-radius: var(--r-sm);
   }
+  .stack-note code { padding: 2px 8px; }
 
   @media (min-width: 768px) { .stack-grid { grid-template-columns: repeat(2, 1fr); } }
   @media (min-width: 1200px) { .stack-grid { grid-template-columns: repeat(3, 1fr); } }
@@ -697,8 +697,6 @@
 
   /* ── FORMATION ── */
   .formation { background: var(--g050); }
-  .formation .timeline { border-left-color: var(--g100); }
-  .formation .timeline-item::before { box-shadow: 0 0 0 4px var(--g050); }
 
   .formation-school-desc {
     font-family: var(--serif);
@@ -758,16 +756,7 @@
     line-height: 1.55;
     color: var(--ink-2);
   }
-  .theme-list code {
-    font-family: var(--mono);
-    font-size: 12px;
-    font-weight: 500;
-    color: var(--g700);
-    background: var(--g050);
-    border: 1px solid var(--g100);
-    padding: 1px 7px;
-    border-radius: var(--r-sm);
-  }
+  .theme-list code { padding: 1px 7px; }
 
   .formation-tsrit-list {
     list-style: none;
