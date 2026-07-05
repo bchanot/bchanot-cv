@@ -79,12 +79,19 @@ Functional neutrals (allowed, intentional — layering + text, NOT brand):
   green-scale intermediates for dark layering and light block bg
 - `#111111` / `#1e1e1e` / `#636363` (`--ink-1/2/3`) — text hierarchy
 - `#d8d4c8` (`--rule`), `#e6e2d8` (`--tag`) — separators, generic tags
-Any color outside these two lists is a violation.
+- `#ffffff` text + `rgba(255,255,255,…)` alphas — text/hover on dark bg and
+  low-alpha (≤5%) overlays only; never as a background color
+Any color outside these lists is a violation.
 
 Typography:
 - `Fraunces` (serif) — display: hero name, section titles, role headings
 - `JetBrains Mono` (mono) — eyebrows, badges, tech pills, nav, contact rows
 - `DM Sans` (sans) — body text
+
+CV exception (`CV_Bastien_Chanot.html`, compact print style): section titles
+and company/school names are mono, roles/degrees are sans; Fraunces is
+reserved for the header name and the accroche. The mapping above applies to
+the landing.
 
 Forbidden:
 - Pure white background (`#ffffff`)
