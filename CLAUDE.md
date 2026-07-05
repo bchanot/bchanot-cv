@@ -66,13 +66,20 @@ The PDF must match the latest HTML before pushing or sending.
 
 ## Design system (non-negotiable)
 
-Palette — exact hex:
+Palette — exact hex (brand colors):
 - `#0d1b12` — dark forest (nav, dark sections, footer)
 - `#1b5e3b` — green primary (links, section titles on light bg)
 - `#2d7a4f` — green accent (borders, dots, separators)
 - `#6ab98a` — green light (lisible on dark bg)
 - `#dff0e7` — green tint (pill bg)
 - `#f5f3ec` — parchment (page bg)
+
+Functional neutrals (allowed, intentional — layering + text, NOT brand):
+- `#183325` (`--dark-mid`), `#0e3320` (`--g900`), `#eef7f1` (`--g050`) —
+  green-scale intermediates for dark layering and light block bg
+- `#111111` / `#1e1e1e` / `#636363` (`--ink-1/2/3`) — text hierarchy
+- `#d8d4c8` (`--rule`), `#e6e2d8` (`--tag`) — separators, generic tags
+Any color outside these two lists is a violation.
 
 Typography:
 - `Fraunces` (serif) — display: hero name, section titles, role headings
@@ -124,6 +131,12 @@ None — global rules apply.
 - Edits to `index.html` or `CV_Bastien_Chanot.html` must preserve the
   palette + typography + structure unless explicitly asked to change them.
 - After editing `CV_Bastien_Chanot.html`, regenerate the PDF.
+- After editing index.html's inline `<script>`, recompute the CSP hash and
+  update `nginx-security-headers.conf` (script-src is hash-pinned — a stale
+  hash silently disables the JS in prod):
+  ```bash
+  python3 -c "import hashlib,base64,re;h=base64.b64encode(hashlib.sha256(re.search(r'<script>(.*?)</script>',open('index.html',encoding='utf-8').read(),re.S).group(1).encode()).digest()).decode();print('sha256-'+h)"
+  ```
 - Never add external dependencies beyond Google Fonts.
 - Never add tracking, analytics, cookie banners or third-party scripts.
 - Always test in mobile width (375px) and desktop (1440px) before claiming done.

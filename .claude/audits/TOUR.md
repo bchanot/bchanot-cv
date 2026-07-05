@@ -92,3 +92,12 @@ container is redeployed: merge → VPS `git pull && docker compose up -d
 
 Commits: 4 (fix/clean/docs + this report). BREAKING: 1 (SEC-1, container
 port — compose covered). Branch left UNMERGED — `gitflow finish` on GO.
+
+## Follow-up 2026-07-05 — residuals closed (chore/tour-residuals, user GO)
+
+| ID | Resolution |
+|----|-----------|
+| CLN-3 | Card CSS deduplicated via grouped selectors (shared chrome/hover/head/title/tag blocks + per-class specifics), zero HTML change, cascade-order verified (no interfering same-specificity rules between shared and specific blocks), braces 195/195. Honest correction: the audited "~421 redundant lines" was overstated — real net dedup ≈ 60 lines. |
+| CLN-4 | Norm aligned with reality: the 8 functional neutrals (inks, rule/tag, 2 green intermediates) are now DOCUMENTED as allowed in CLAUDE.md (+ README pointer). "Any color outside the two lists is a violation" keeps the norm enforceable. |
+| SEC-7 | script-src hardened: `unsafe-inline` replaced by the sha256 hash of the single inline script (index has zero style/script attributes). style-src keeps `unsafe-inline` (CV carries 2 style attributes + single-file convention) — documented. NEW INVARIANT in CLAUDE.md: recompute the hash after any inline-JS edit (stale hash = JS silently blocked in prod). |
+| INF-2 | CORRECTION: false positive in the 2026-07-05 report-only run — `.gitignore` exists (549B) and covers the expected classes. No action was ever needed. |
