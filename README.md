@@ -73,6 +73,9 @@ Strict palette (non-negotiable):
 | `#dff0e7` | Green tint — pill background |
 | `#f5f3ec` | Parchment — page background |
 
+Plus a documented set of functional neutrals (text inks, rules/tags, two
+green-scale intermediates) — the exhaustive list lives in `CLAUDE.md`.
+
 Typography:
 - `Fraunces` — display (names, titles)
 - `JetBrains Mono` — technical labels, badges, pills, nav, contact
