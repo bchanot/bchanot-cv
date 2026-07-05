@@ -352,6 +352,7 @@
     .reveal { opacity: 1; transform: none; animation: none; }
     .brand::before { animation: none; }
     html { scroll-behavior: auto; }
+    *, *::before, *::after { transition: none !important; animation: none !important; }
   }
 
   /* ── ABOUT ── */
@@ -419,7 +420,7 @@
     margin-top: 40px;
   }
   .stack-card {
-    background: #fff;
+    background: var(--page);
     border: 1px solid var(--rule);
     border-radius: var(--r-md);
     padding: 24px;
@@ -640,7 +641,7 @@
   }
   @media (min-width: 768px) { .projects-grid { grid-template-columns: repeat(2, 1fr); } }
   .project-card {
-    background: #fff;
+    background: var(--page);
     border: 1px solid var(--rule);
     border-radius: var(--r-md);
     padding: 24px;
@@ -731,7 +732,7 @@
   @media (min-width: 1200px) { .formation-themes { grid-template-columns: repeat(3, 1fr); } }
 
   .theme-card {
-    background: #fff;
+    background: var(--page);
     border: 1px solid var(--rule);
     border-radius: var(--r-md);
     padding: 22px;
@@ -860,7 +861,7 @@
     grid-template-columns: 56px 1fr;
     gap: 20px;
     align-items: start;
-    background: #fff;
+    background: var(--page);
     border: 1px solid var(--rule);
     border-radius: var(--r-md);
     padding: 22px 24px;
