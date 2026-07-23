@@ -122,9 +122,10 @@ Forbidden:
 - Profile state, including job search context, must stay consistent across
   index.html and CV. Currently: looking for **CDI** in embedded / systems
   software first; freelance missions (ZenQuality) in parallel.
-- Geography: Yerres (91) currently; relocation to the Nantes area (Pays de
-  la Loire) planned mid-term; full remote preferred, hybrid possible in
-  Nantes, or hybrid 1–2 days/month if Paris.
+- Geography: zone **Loire-Atlantique · Vendée · Morbihan**. Never mention
+  Yerres or the Essonne. Presence, in order of preference: full remote →
+  hybrid in the zone → on-site in the zone → Paris only as a fallback, and
+  only hybrid at 1–2 days per month maximum.
 
 ---
 
