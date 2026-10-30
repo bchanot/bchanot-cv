@@ -1,4 +1,5 @@
 ---
+format: 2
 type: learnings_registry
 entry_prefix: LRN
 schema:
@@ -14,15 +15,6 @@ rules:
 ---
 
 # Learnings registry (LRN)
-
-## Index
-
-| ID | Date | Pattern | Applies to |
-|----|------|---------|------------|
-| LRN-001 | 2026-05-15 | certbot --nginx matches `server_name`, not filename | nginx + certbot on multi-site VPS |
-| LRN-002 | 2026-05-17 | PIL supersample ×8 + Lanczos = clean icon antialiasing | Python stdlib icon generation |
-| LRN-003 | 2026-07-05 | Prove CSS cleanup behavior-preserving via before/after PDF render-hash | weasyprint / paged-media PDF projects |
-| LRN-004 | 2026-07-06 | Digest-pinned base image = frozen CVE exposure; SAST can't see it | any Dockerfile with pinned FROM |
 
 ---
 

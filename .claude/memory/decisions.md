@@ -1,4 +1,5 @@
 ---
+format: 2
 type: decisions_registry
 entry_prefix: BDR
 schema:
@@ -18,18 +19,6 @@ rules:
 
 # Decisions registry (BDR)
 
-## Index
-
-| ID | Date | Title | Status |
-|----|------|-------|--------|
-| BDR-001 | 2026-05-15 | Static single-file site, no framework | accepted |
-| BDR-002 | 2026-05-15 | weasyprint pour PDF CV depuis HTML | accepted |
-| BDR-003 | 2026-05-15 | Position pro: CDI prioritaire, freelance parallèle | accepted |
-| BDR-004 | 2026-05-15 | Containerize site with nginx:alpine behind reverse proxy | accepted |
-| BDR-005 | 2026-05-17 | Favicon: SVG primary + PIL raster fallback | accepted |
-| BDR-006 | 2026-07-05 | Hardened container: nginx-unprivileged + port 8080 | accepted (supersedes BDR-004 infra detail) |
-| BDR-007 | 2026-07-05 | Profile geo canonical: Nantes relocation | accepted (supersedes BDR-003 geo) |
-
 ---
 
 ## BDR-001 — Static single-file site, no framework
@@ -43,6 +32,7 @@ rules:
   - React SPA — interdit pour site public indexable (cf `~/.claude/CLAUDE.md`).
   - HTML + CSS externes — éclate 1 livrable en 3 fichiers sans bénéfice.
 - **Référence**: `index.html`, section Stack de `CLAUDE.md`.
+- **Status (2026-10-30, upgrade)**: accepted
 
 ---
 
@@ -58,6 +48,7 @@ rules:
   - Print manuel via navigateur — pas reproductible, dérive entre HTML et PDF.
 - **Warnings connus**: `box-shadow: none` ignoré par weasyprint, sans impact visuel.
 - **Référence**: `CV_Bastien_Chanot.pdf`.
+- **Status (2026-10-30, upgrade)**: accepted
 
 ---
 
@@ -68,6 +59,7 @@ rules:
 - **Décision**: Site annonce **CDI systèmes/embarqué prioritaire**, ZenQuality (freelance) en parallèle. Géo: full remote idéal, hybride 1-2 j/mois si Paris, mobilité Pays de la Loire.
 - **Pourquoi**: Recadrage user. Première version annonçait "Missions long terme & expertise" — pas représentatif. Hiérarchie CDI > freelance maintenant explicite (hero eyebrow + about para + callout + CV header).
 - **Référence**: `index.html` (hero-eyebrow, about-text para 3, about-callout) + `CV_Bastien_Chanot.html` (header).
+- **Status (2026-10-30, upgrade)**: accepted
 
 ---
 

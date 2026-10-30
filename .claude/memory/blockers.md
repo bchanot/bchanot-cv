@@ -1,4 +1,5 @@
 ---
+format: 2
 type: blockers_registry
 entry_prefix: BLK
 schema:
@@ -15,12 +16,6 @@ rules:
 ---
 
 # Blockers registry (BLK)
-
-## Index
-
-| ID | Date | Friction | Status |
-|----|------|---------|--------|
-| BLK-001 | 2026-05-17 | Favicon 404 in prod after rebuild — Dockerfile selective COPY hid new repo files | resolved |
 
 ---
 
