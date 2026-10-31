@@ -1,4 +1,5 @@
 ---
+format: 2
 type: evals_registry
 entry_prefix: EVAL
 schema:
@@ -16,12 +17,6 @@ rules:
 ---
 
 # Evals registry (EVAL)
-
-## Index
-
-| ID | Date | Output | Action |
-|----|------|--------|--------|
-| EVAL-001 | 2026-07-06 | /tour run 2026-07-05-3 (3 it., converged) + residual closure | keep |
 
 ## EVAL-001 — /tour run 2026-07-05-3 + residual closure pass
 

@@ -47,3 +47,6 @@ rules:
 - Tour 2026-07-05-3 finished (session-limit pause mid-it3, agents transcript-resumed): CONVERGED 3 it. SEC-1 HIGH fixed — base 1.28→1.30-alpine, CVE-2026-42945 (`1aa97f0`); clean F1-F8 (`613bfc0`, −54 lines, render-hash proven); README synced (`2f5e51a`).
 - All 10 residuals closed on owner GO: Google Fonts trimmed both files (CV render-hash identical, index browser-verified 375+1440), CV date chips French + en-dash, CV tags → 999px pills, contact-grid no-ops dropped, nginx dotfile block reordered first, PDF gzip dropped, compose healthcheck deduped (image healthcheck verified healthy), CLAUDE.md white-family + CV-typography exception documented, BDR-006 annotated (1.30 bump).
 - LRN-004 (pinned base = frozen CVE exposure) + EVAL-001 (tour verdict) logged. Branch chore/tour-2026-07-05-3 → develop on owner GO (this session).
+
+## 2026-10-30
+- Memory registries → v2 (`memory.sh upgrade`, claude-config BDR-129 phase 4a): `check` green, open blockers unchanged.
